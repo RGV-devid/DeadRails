@@ -278,9 +278,9 @@ end
 end)
 end})
 
-Tabs.Exploit:AddSection({"Lighting"})
+Tabs.Graphics:AddSection({"Lighting"})
 
-Tabs.Exploit:AddToggle({
+Tabs.Graphics:AddToggle({
 Name = "Removal Cloud",
 Callback = function(v)
 _G.Cloud = v
@@ -295,7 +295,7 @@ Callback = function(v)
 _G.Speed = v
 game:GetService("RunService").RenderStepped:Connect(function()
 if _G.Speed then
-game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed + 2
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 18
 end
 end)
 end})
