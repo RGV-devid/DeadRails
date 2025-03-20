@@ -278,7 +278,47 @@ end
 end)
 end})
 
+Tabs.Exploit:AddSection({"Enemies"})
 
+Tabs.Players:AddSlider({
+  Name = "Hitbox",
+  Min = 1,
+  Max = 10,
+  Increase = 1,
+  Default = 10,
+  Callback = function(v)
+_G.HitboxEnemies = v
+end})
+
+Tabs.Exploit:AddToggle({
+Name = "Hitbox Enemies",
+Callback = function(v)
+if v then
+for _,v in ipairs(workspace:GetDescendants()) do 
+if v.Name == "HumanoidRootPart" then
+v.Size = Vector3.new(_G.HitboxEnemies, _G.HitboxEnemies, _G.HitboxEnemies)
+v.CanCollide = false
+v.CanTouch = false
+end
+end
+Hitbox = workspace.DescendantAdded:Connect(function(v)
+if v.Name == "HumanoidRootPart" then
+v.Size = Vector3.new(_G.HitboxEnemies, _G.HitboxEnemies, _G.HitboxEnemies)
+v.CanCollide = false
+v.CanTouch = false
+end
+end)
+else
+Hitbox:Disconnect()
+for _,v in ipairs(workspace:GetDescendants()) do 
+if v.Name == "HumanoidRootPart" then
+v.Size = Vector3.new(1, 1, 1)
+v.CanCollide = false
+v.CanTouch = false
+end
+end
+end
+end})
 Tabs.Players:AddSection({"Players"})
 Tabs.Players:AddToggle({
 Name = "Speed Boost",
@@ -286,7 +326,7 @@ Callback = function(v)
 _G.Speed = v
 game:GetService("RunService").RenderStepped:Connect(function()
 if _G.Speed then
-game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed + _G.SelectSpeed
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed + 2
 end
 end)
 end})
@@ -312,6 +352,7 @@ end})
 Tabs.Players:AddToggle({
 Name = "Third Person",
 Callback = function(v)
+_G.ThirdPerson
 game:GetService("RunService").RenderStepped:Connect(function()
 if _G.ThirdPerson then
 game.Players.LocalPlayer.CameraMode = "Classic"
