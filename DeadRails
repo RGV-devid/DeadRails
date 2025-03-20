@@ -34,11 +34,7 @@ Callback = function(v)
 _G.AutoMoneyBag = v
 game:GetService("RunService").RenderStepped:Connect(function()
 if _G.AutoMoneyBag then
-for i, v in ipairs(workspace:GetDescendants()) do
-if v.Name == "MoneyBag" then
-fireproximityprompt(v.CollectPrompt)
-end
-end
+fireproximityprompt(workspace.RuntimeItems.Moneybag.MoneyBag.CollectPrompt)
 end
 end)
 end})
@@ -153,7 +149,11 @@ Callback = function(v)
 _G.AutoUseSnakeOil = v
 game:GetService("RunService").RenderStepped:Connect(function()
 if _G.AutoUseSnakeOil and game.Players.LocalPlayer.Character.Humanoid.Health < _G.HealthUseSnakeOil then
-game:GetService("Players").LocalPlayer.Character:FindFirstChild("Snake Oil").Use:FireServer()
+local args = {
+    [1] = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Snake Oil")
+}
+
+game:GetService("Players").LocalPlayer.Character:FindFirstChild("Snake Oil").Use:FireServer(unpack(args))
 end
 end)
 end})
@@ -175,5 +175,85 @@ game:GetService("RunService").RenderStepped:Connect(function()
 if _G.AutoUseBandage and game.Players.LocalPlayer.Character.Humanoid.Health < _G.HealthUseBandage then
 game:GetService("Players").LocalPlayer.Character:FindFirstChild("Bandage").Use:FireServer()
 end
+end)
+end})
+Tabs.Main:AddSection({"Gun Shells Interact"})
+Tabs.Main:AddToggle({
+Name = "Auto Revolver Shells",
+Callback = function(v)
+_G.AutoRevolverShells = v
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.AutoRevolverShells then
+local args = {
+    [1] = workspace.RuntimeItems:FindFirstChild("RevolverAmmo")
+}
+
+game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
+end)
+end})
+Tabs.Main:AddToggle({
+Name = "Auto Shotgun Shells",
+Callback = function(v)
+_G.AutoShotgunShells = v
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.AutoShotgunShells then
+local args = {
+    [1] = workspace.RuntimeItems:FindFirstChild("ShotgunShells")
+}
+
+game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
+end)
+end})
+Tabs.Main:AddToggle({
+Name = "Auto Rifle Shells",
+Callback = function(v)
+_G.AutoRifleShells = v
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.AutoRifleShells then
+local args = {
+    [1] = workspace.RuntimeItems:FindFirstChild("RifleAmmo")
+}
+
+game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
+end)
+end})
+Tabs.Main:AddSection({"Gun Interact"})
+Tabs.Main:AddToggle({
+Name = "Auto Revolver",
+Callback = function(v)
+_G.AutoRevolver = v
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.AutoRevolver then
+local args = {
+    [1] = workspace.RuntimeItems:FindFirstChild("Revolver")
+}
+
+game:GetService("ReplicatedStorage").Remotes.Tool.PickUpTool:FireServer(unpack(args))
+end)
+end})
+Tabs.Main:AddToggle({
+Name = "Auto Shotgun",
+Callback = function(v)
+_G.AutoShotgun = v
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.AutoShotgun then
+local args = {
+    [1] = workspace.RuntimeItems:FindFirstChild("Shotgun")
+}
+
+game:GetService("ReplicatedStorage").Remotes.Tool.PickUpTool:FireServer(unpack(args))
+end)
+end})
+Tabs.Main:AddToggle({
+Name = "Auto Rifle",
+Callback = function(v)
+_G.AutoRifle = v
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.AutoRifle then
+local args = {
+    [1] = workspace.RuntimeItems:FindFirstChild("Rifle")
+}
+
+game:GetService("ReplicatedStorage").Remotes.Tool.PickUpTool:FireServer(unpack(args))
 end)
 end})
