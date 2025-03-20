@@ -263,3 +263,62 @@ game:GetService("ReplicatedStorage").Remotes.Tool.PickUpTool:FireServer(unpack(a
 end
 end)
 end})
+Tabs.Main:AddToggle({
+Name = "Auto Electrocutioner",
+Callback = function(v)
+_G.AutoElectrocutioner = v
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.AutoElectrocutioner then
+local args = {
+    [1] = workspace.RuntimeItems:FindFirstChild("Electrocutioner")
+}
+
+game:GetService("ReplicatedStorage").Remotes.Tool.PickUpTool:FireServer(unpack(args))
+end
+end)
+end})
+
+
+Tabs.Players:AddSection({"Players"})
+Tabs.Players:AddToggle({
+Name = "Speed Boost",
+Callback = function(v)
+_G.Speed = v
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.Speed then
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed + _G.SelectSpeed
+end
+end)
+end})
+Tabs.Players:AddSection({"Third Person"})
+Tabs.Players:AddSlider({
+  Name = "Min Distance",
+  Min = 0,
+  Max = 10,
+  Increase = 1,
+  Default = 0,
+  Callback = function(v)
+_G.MinDistancePerson = v
+end})
+Tabs.Players:AddSlider({
+  Name = "Max Distance",
+  Min = 30,
+  Max = 150,
+  Increase = 1,
+  Default = 30,
+  Callback = function(v)
+_G.MaxDistancePerson = v
+end})
+Tabs.Players:AddToggle({
+Name = "Third Person",
+Callback = function(v)
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.ThirdPerson then
+game.Players.LocalPlayer.CameraMode = "Classic"
+game.Players.LocalPlayer.CameraMaxZoomDistance = _G.MaxDistancePerson or 30
+game.Players.LocalPlayer.CameraMinZoomDistance = _G.MinDistancePerson or 0
+else
+game.Players.LocalPlayer.CameraMode = "LockFirstPerson"
+end
+end)
+end})
