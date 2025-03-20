@@ -15,14 +15,14 @@ local LibraryESP = loadstring(game:HttpGet("https://github.com/RGV-devid/Scripts
 local Window = Library:MakeWindow({"YOUHUB | Dead Rails (Game)", "v0.0.1", "testando-redzLibv5.json"})
 
 local Button = Window:AddMinimizeButton({
-Button = { ImageColor3 = Color3.fromRGB(0,150,255), Image = "rbxassetid://95869322194132", BackgroundColor3 = Color3.fromRGB(0,100,255), BackgroundTransparency = 0 },
+Button = { ImageColor3 = Color3.fromRGB(0,255,100), Image = "rbxassetid://95869322194132", BackgroundColor3 = Color3.fromRGB(), BackgroundTransparency = 0 },
 Corner = { CornerRadius = UDim.new(0, 5) },
 })
 Instance.new("UIStroke", game:GetService("CoreGui")["redz Library V5"].Hub).Color = Color3.fromRGB(0,255,100)
 
 local Tabs = {
 Main = Window:MakeTab({"Main"}),
-Exploit = Window:MakeTab({"Exploit"}),
+Graphics = Window:MakeTab({"Graphics"}),
 Players = Window:MakeTab({"Players"}),
 Visual = Window:MakeTab({"Visual"})
 }
@@ -278,46 +278,15 @@ end
 end)
 end})
 
-Tabs.Exploit:AddSection({"Enemies"})
-
-Tabs.Players:AddSlider({
-  Name = "Hitbox",
-  Min = 1,
-  Max = 10,
-  Increase = 1,
-  Default = 10,
-  Callback = function(v)
-_G.HitboxEnemies = v
-end})
+Tabs.Exploit:AddSection({"Lighting"})
 
 Tabs.Exploit:AddToggle({
-Name = "Hitbox Enemies",
+Name = "Removal Cloud",
 Callback = function(v)
-if v then
-for _,v in ipairs(workspace:GetDescendants()) do 
-if v.Name == "HumanoidRootPart" then
-v.Size = Vector3.new(_G.HitboxEnemies, _G.HitboxEnemies, _G.HitboxEnemies)
-v.CanCollide = false
-v.CanTouch = false
-end
-end
-Hitbox = workspace.DescendantAdded:Connect(function(v)
-if v.Name == "HumanoidRootPart" then
-v.Size = Vector3.new(_G.HitboxEnemies, _G.HitboxEnemies, _G.HitboxEnemies)
-v.CanCollide = false
-v.CanTouch = false
-end
+_G.Cloud = v
+game:GetService("RunService").RenderStepped:Connect(function()
+workspace.Terrain.Cloud.Enabled = not _G.Cloud
 end)
-else
-Hitbox:Disconnect()
-for _,v in ipairs(workspace:GetDescendants()) do 
-if v.Name == "HumanoidRootPart" then
-v.Size = Vector3.new(1, 1, 1)
-v.CanCollide = false
-v.CanTouch = false
-end
-end
-end
 end})
 Tabs.Players:AddSection({"Players"})
 Tabs.Players:AddToggle({
@@ -362,4 +331,42 @@ else
 game.Players.LocalPlayer.CameraMode = "LockFirstPerson"
 end
 end)
+end})
+Tabs.Visual:AddToggle({
+Name = "Enemies ESP",
+Callback = function(v)
+if v then
+for _,v in ipairs(workspace:GetDescendants()) do
+if v.Parent.Name == "RuntimeItems" and v:FindFirstChild("Humanoid") then
+LibraryESP:AddESP(v, v.Name .. "\nHP:" .. v.Humanoid.Health .. "/" .. v.Humanoid.MaxHealth, Color3.new(1), 15, "EneESP")
+end
+end
+EnemiesESP = workspace.DescendantAdded:Connect(function(v)
+if v.Parent.Name == "RuntimeItems" and v:FindFirstChild("Humanoid") then
+LibraryESP:AddESP(v, v.Name .. "\nHP:" .. v.Humanoid.Health .. "/" .. v.Humanoid.MaxHealth, Color3.new(1), 15, "EneESP")
+end
+end)
+else
+EnemiesESP:Disconnect()
+LibraryESP:Delete("EneESP")
+end
+end})
+Tabs.Visual:AddToggle({
+Name = "Items ESP",
+Callback = function(v)
+if v then
+for _,v in ipairs(workspace:GetDescendants()) do
+if v.Parent.Name == "RuntimeItems" and not v:FindFirstChild("Humanoid") then
+LibraryESP:AddESP(v, v.Name .. "\nHP:" .. v.Humanoid.Health .. "/" .. v.Humanoid.MaxHealth, Color3.new(1), 15, "ItemESP")
+end
+end
+ItemsESP = workspace.DescendantAdded:Connect(function(v)
+if v.Parent.Name == "RuntimeItems" and not v:FindFirstChild("Humanoid") then
+LibraryESP:AddESP(v, v.Name .. "\nHP:" .. v.Humanoid.Health .. "/" .. v.Humanoid.MaxHealth, Color3.new(1), 15, "ItemESP")
+end
+end)
+else
+ItemsESP:Disconnect()
+LibraryESP:Delete("ItemESP")
+end
 end})
