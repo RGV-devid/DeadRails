@@ -352,7 +352,7 @@ end})
 Tabs.Players:AddToggle({
 Name = "Third Person",
 Callback = function(v)
-_G.ThirdPerson
+_G.ThirdPerson = v
 game:GetService("RunService").RenderStepped:Connect(function()
 if _G.ThirdPerson then
 game.Players.LocalPlayer.CameraMode = "Classic"
