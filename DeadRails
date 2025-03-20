@@ -189,6 +189,7 @@ local args = {
 }
 
 game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
+end
 end)
 end})
 Tabs.Main:AddToggle({
@@ -202,6 +203,7 @@ local args = {
 }
 
 game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
+end
 end)
 end})
 Tabs.Main:AddToggle({
@@ -215,6 +217,7 @@ local args = {
 }
 
 game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
+end
 end)
 end})
 Tabs.Main:AddSection({"Gun Interact"})
@@ -229,6 +232,7 @@ local args = {
 }
 
 game:GetService("ReplicatedStorage").Remotes.Tool.PickUpTool:FireServer(unpack(args))
+end
 end)
 end})
 Tabs.Main:AddToggle({
@@ -242,6 +246,7 @@ local args = {
 }
 
 game:GetService("ReplicatedStorage").Remotes.Tool.PickUpTool:FireServer(unpack(args))
+end
 end)
 end})
 Tabs.Main:AddToggle({
@@ -255,5 +260,6 @@ local args = {
 }
 
 game:GetService("ReplicatedStorage").Remotes.Tool.PickUpTool:FireServer(unpack(args))
+end
 end)
 end})
