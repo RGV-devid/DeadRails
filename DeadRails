@@ -356,7 +356,7 @@ Tabs.Players:AddSlider({
   Name = "Walkspeed",
   Min = 1,
   Max = 17.5,
-  Increase = 3,
+  Increase = 0.5,
   Default = 16,
   Callback = function(v)
 _G.SelectSpeed = v
@@ -375,7 +375,7 @@ Tabs.Players:AddSlider({
   Name = "Field Of View",
   Min = 70,
   Max = 120,
-  Increase = 3,
+  Increase = 0.5,
   Default = 70,
   Callback = function(v)
 _G.SelectFOV = v
@@ -470,12 +470,12 @@ Callback = function(v)
 if v then
 for _,v in ipairs(workspace:GetDescendants()) do
 if v.Name == "Wolf" and not v:FindFirstChild("WolfESP") then
-LibraryESP:AddESP(v, "Walker", Color3.fromRGB(80,80,80), 14, "WolfESP")
+LibraryESP:AddESP(v, "Wolf", Color3.fromRGB(80,80,80), 14, "WolfESP")
 end
 end
 WolfESP = workspace.DescendantAdded:Connect(function(v)
 if v.Name == "Wolf" and not v:FindFirstChild("WolfESP") then
-LibraryESP:AddESP(v, "Walker", Color3.fromRGB(80,80,80), 14, "WolfESP")
+LibraryESP:AddESP(v, "Wolf", Color3.fromRGB(80,80,80), 14, "WolfESP")
 end
 end)
 else
