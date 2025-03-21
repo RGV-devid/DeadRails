@@ -236,6 +236,34 @@ end
 end)
 end})
 Tabs.Main:AddToggle({
+Name = "Auto Navy Revolver",
+Callback = function(v)
+_G.AutoNavyRevolver = v
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.AutoNavyRevolver then
+local args = {
+    [1] = workspace.RuntimeItems:FindFirstChild("Navy Revolver")
+}
+
+game:GetService("ReplicatedStorage").Remotes.Tool.PickUpTool:FireServer(unpack(args))
+end
+end)
+end})
+Tabs.Main:AddToggle({
+Name = "Auto Mauser C96",
+Callback = function(v)
+_G.AutoMauserC96 = v
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.AutoMauserC96 then
+local args = {
+    [1] = workspace.RuntimeItems:FindFirstChild("Mauser C96")
+}
+
+game:GetService("ReplicatedStorage").Remotes.Tool.PickUpTool:FireServer(unpack(args))
+end
+end)
+end})
+Tabs.Main:AddToggle({
 Name = "Auto Shotgun",
 Callback = function(v)
 _G.AutoShotgun = v
@@ -257,6 +285,20 @@ game:GetService("RunService").RenderStepped:Connect(function()
 if _G.AutoRifle then
 local args = {
     [1] = workspace.RuntimeItems:FindFirstChild("Rifle")
+}
+
+game:GetService("ReplicatedStorage").Remotes.Tool.PickUpTool:FireServer(unpack(args))
+end
+end)
+end})
+Tabs.Main:AddToggle({
+Name = "Auto Navy Revolver",
+Callback = function(v)
+_G.AutoBoltActionRifle = v
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.AutoBoltActionRifle then
+local args = {
+    [1] = workspace.RuntimeItems:FindFirstChild("Bolt Action Rifle")
 }
 
 game:GetService("ReplicatedStorage").Remotes.Tool.PickUpTool:FireServer(unpack(args))
@@ -560,7 +602,7 @@ Name = "Items ESP",
 Callback = function(v)
 if v then
 for _,v in ipairs(workspace:GetDescendants()) do
-if v.Parent.Name == "RuntimeItems" and not v:FindFirstChild("Humanoid") and not v:FindFirstChild("ItemESP") then
+if v.Parent.Name == "RuntimeItems" and not v.Name == "Bond" and not v:FindFirstChild("Humanoid") and not v:FindFirstChild("ItemESP") then
 LibraryESP:AddESP(v, v.Name, Color3.new(1,1), 14, "ItemESP")
 end
 end
@@ -572,6 +614,25 @@ end)
 else
 ItemsESP:Disconnect()
 LibraryESP:Delete("ItemESP")
+end
+end})
+Tabs.Visual:AddToggle({
+Name = "Bond ESP",
+Callback = function(v)
+if v then
+for _,v in ipairs(workspace.RuntimeItems:GetDescendants()) do
+if v.Name == "Bond" and and not v:FindFirstChild("BondESP") then
+LibraryESP:AddESP(v, "Bond", Color3.fromRGB(255,120,120), 14, "BondESP")
+end
+end
+BondESP = workspace.DescendantAdded:Connect(function(v)
+if v.Name == "Bond" and and not v:FindFirstChild("BondESP") then
+LibraryESP:AddESP(v, "Bond", Color3.fromRGB(255,120,120), 14, "BondESP")
+end
+end)
+else
+BondESP:Disconnect()
+LibraryESP:Delete("BondESP")
 end
 end})
 Tabs.Visual:AddSection({"Setting ESP"})
