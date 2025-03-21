@@ -583,12 +583,12 @@ Name = "Werewolf ESP",
 Callback = function(v)
 if v then
 for _,v in ipairs(workspace:GetDescendants()) do
-if v.Name == "Werewolf" and and not v:FindFirstChild("WerewolfESP") then
+if v.Name == "Werewolf" and not v:FindFirstChild("WerewolfESP") then
 LibraryESP:AddESP(v, "Werewolf", Color3.fromRGB(150, 120, 95), 14, "WerewolfESP")
 end
 end
 WerewolfESP = workspace.DescendantAdded:Connect(function(v)
-if v.Name == "Werewolf" and and not v:FindFirstChild("WerewolfESP") then
+if v.Name == "Werewolf" and not v:FindFirstChild("WerewolfESP") then
 LibraryESP:AddESP(v, "Werewolf", Color3.fromRGB(150, 120, 95), 14, "WerewolfESP")
 end
 end)
