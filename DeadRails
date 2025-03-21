@@ -19,6 +19,7 @@ Button = { ImageColor3 = Color3.fromRGB(0,255,100), Image = "rbxassetid://958693
 Corner = { CornerRadius = UDim.new(0, 5) },
 })
 Instance.new("UIStroke", game:GetService("CoreGui")["redz Library V5"].Hub).Color = Color3.fromRGB(0,255,100)
+Instance.new("UIStroke", game:GetService("CoreGui")["redz Library V5"].ImageButton).Color = Color3.fromRGB(0,255,100)
 game:GetService("RunService").RenderStepped:Connect(function()
 if game:GetService("CoreGui").NPC_Lock:FindFirstChild("SettingsFrame") then
 game:GetService("CoreGui").NPC_Lock:FindFirstChild("SettingsFrame").UICorner.CornerRadius = UDim.new(0,5)
@@ -362,6 +363,29 @@ end
 end)
 end})
 Tabs.Graphics:AddSection({"OP"})
+Tabs.Graphics:AddToggle({
+Name = "Hitbox",
+Callback = function(v)
+if v then
+for _,v in ipairs(workspace:GetDescendants()) do
+if v.Name == "Outlaw" or v.Name == "Vampire" or v.Name == "Werewolf" or v.Name == "Wolf" or v.Name == "Runner" or v.Name == "Walker" or v.Name == "Banner" then
+v.HumanoidRootPart.Size = Vector3.new(5,5,5)
+end
+end
+HitboxEnemies = workspace.DescendantAdded:Connect(function(v)
+if v.Name == "Outlaw" or v.Name == "Vampire" or v.Name == "Werewolf" or v.Name == "Wolf" or v.Name == "Runner" or v.Name == "Walker" or v.Name == "Banner" then
+v.HumanoidRootPart.Size = Vector3.new(5,5,5)
+end
+end)
+else
+HitboxEnemies:Disconnect()
+for _,v in ipairs(workspace:GetDescendants()) do
+if v.Name == "Outlaw" or v.Name == "Vampire" or v.Name == "Werewolf" or v.Name == "Wolf" or v.Name == "Runner" or v.Name == "Walker" or v.Name == "Banner" then
+v.HumanoidRootPart.Size = Vector3.new(1.5,1.5,1.5)
+end
+end
+end
+end})
 Tabs.Graphics:AddToggle({
 Name = "NPCs Lock GUI",
 Callback = function(v)
