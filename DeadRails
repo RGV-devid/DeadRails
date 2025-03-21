@@ -285,7 +285,7 @@ Name = "Removal Cloud",
 Callback = function(v)
 _G.Cloud = v
 game:GetService("RunService").RenderStepped:Connect(function()
-workspace.Terrain.Cloud.Enabled = not _G.Cloud
+workspace.Terrain:FindFirstChild("Clouds").Enabled = not _G.Cloud
 end)
 end})
 Tabs.Players:AddSection({"Players"})
@@ -295,7 +295,7 @@ Callback = function(v)
 _G.Speed = v
 game:GetService("RunService").RenderStepped:Connect(function()
 if _G.Speed then
-game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 18
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 17.5
 end
 end)
 end})
