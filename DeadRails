@@ -512,7 +512,7 @@ LibraryESP:AddESP(v, "Walker", Color3.new(0,1), 14, "WalkerESP")
 end
 end
 WalkerESP = workspace.DescendantAdded:Connect(function(v)
-if v.Name == "Walker" then
+if v.Name == "Walker" and not v:FindFirstChild("WalkerESP") then
 LibraryESP:AddESP(v, "Walker", Color3.new(0,1), 14, "WalkerESP")
 end
 end)
@@ -602,7 +602,7 @@ Name = "Items ESP",
 Callback = function(v)
 if v then
 for _,v in ipairs(workspace:GetDescendants()) do
-if v.Parent.Name == "RuntimeItems" and not v.Name == "Bond" and not v:FindFirstChild("Humanoid") and not v:FindFirstChild("ItemESP") then
+if v.Parent.Name == "RuntimeItems" and not v:FindFirstChild("Humanoid") and not v:FindFirstChild("ItemESP") then
 LibraryESP:AddESP(v, v.Name, Color3.new(1,1), 14, "ItemESP")
 end
 end
@@ -616,25 +616,7 @@ ItemsESP:Disconnect()
 LibraryESP:Delete("ItemESP")
 end
 end})
-Tabs.Visual:AddToggle({
-Name = "Bond ESP",
-Callback = function(v)
-if v then
-for _,v in ipairs(workspace.RuntimeItems:GetDescendants()) do
-if v.Name == "Bond" and and not v:FindFirstChild("BondESP") then
-LibraryESP:AddESP(v, "Bond", Color3.fromRGB(255,120,120), 14, "BondESP")
-end
-end
-BondESP = workspace.DescendantAdded:Connect(function(v)
-if v.Name == "Bond" and and not v:FindFirstChild("BondESP") then
-LibraryESP:AddESP(v, "Bond", Color3.fromRGB(255,120,120), 14, "BondESP")
-end
-end)
-else
-BondESP:Disconnect()
-LibraryESP:Delete("BondESP")
-end
-end})
+
 Tabs.Visual:AddSection({"Setting ESP"})
 Tabs.Visual:AddToggle({
 Name = "Show Text",
