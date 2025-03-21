@@ -278,15 +278,24 @@ end
 end)
 end})
 
-Tabs.Graphics:AddSection({"Lighting"})
-
+Tabs.Graphics:AddSection({"Graphics"})
+game:GetService("RunService").RenderStepped:Connect(function()
+workspace.Terrain:FindFirstChild("Clouds").Enabled = not _G.Cloud
+end)
 Tabs.Graphics:AddToggle({
 Name = "Removal Cloud",
 Callback = function(v)
 _G.Cloud = v
-game:GetService("RunService").RenderStepped:Connect(function()
-workspace.Terrain:FindFirstChild("Clouds").Enabled = not _G.Cloud
-end)
+end})
+Tabs.Graphics:AddSection({"Lighting"})
+Tabs.Graphics:AddSlider({
+  Name = "Brightness",
+  Min = 0,
+  Max = 3,
+  Increase = 1,
+  Default = 0,
+  Callback = function(v)
+_G.Brightness = v
 end})
 Tabs.Graphics:AddToggle({
 Name = "Fullbright",
@@ -294,22 +303,73 @@ Callback = function(v)
 _G.Fullbright = v
 game:GetService("RunService").RenderStepped:Connect(function()
 if _G.Fullbright then
+game.Lighting.Brightness = _G.Brightness or 0
 game.Lighting.GlobalShadows = false
 game.Lighting.OutdoorAmbient = Color3.new(1,1,1)
 end
 end)
 end})
 Tabs.Players:AddSection({"Players"})
+Tabs.Players:AddSlider({
+  Name = "Walkspeed",
+  Min = 1,
+  Max = 17.5,
+  Increase = 3,
+  Default = 16,
+  Callback = function(v)
+_G.SelectSpeed = v
+end})
 Tabs.Players:AddToggle({
 Name = "Speed Boost",
 Callback = function(v)
 _G.Speed = v
 game:GetService("RunService").RenderStepped:Connect(function()
 if _G.Speed then
-game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 17.5
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = _G.SelectSpeed
 end
 end)
 end})
+Tabs.Players:AddSlider({
+  Name = "Field Of View",
+  Min = 70,
+  Max = 120,
+  Increase = 3,
+  Default = 70,
+  Callback = function(v)
+_G.SelectFOV = v
+end})
+Tabs.Players:AddToggle({
+Name = "Field Of View Boost",
+Callback = function(v)
+_G.FOV = v
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.FOV then
+workspace.Camera.FieldOfView = _G.FOV or 70
+end
+end)
+end})
+Tabs.Players:AddToggle({
+Name = "Noclip",
+Callback = function(v)
+if v then
+        noclipConnection = game:GetService("RunService").Stepped:Connect(function()
+            local player = game.Players.LocalPlayer
+            if player and player.Character then
+                for _, part in pairs(player.Character:GetDescendants()) do
+                    if part:IsA("BasePart") then
+                        part.CanCollide = false
+                    end
+                end
+            end
+        end)
+    else
+        if noclipConnection then
+            noclipConnection:Disconnect()
+            noclipConnection = nil
+        end
+    end
+end})
+
 Tabs.Players:AddSection({"Third Person"})
 Tabs.Players:AddSlider({
   Name = "Min Distance",
@@ -349,12 +409,12 @@ Callback = function(v)
 if v then
 for _,v in ipairs(workspace:GetDescendants()) do
 if v.Name == "Outlaw" and not v:FindFirstChild("OutlawESP") then
-LibraryESP:AddESP(v, "Outlaw", Color3.new(1), 14, "OutlawESP")
+LibraryESP:AddESP(v, "Outlaw", Color3.fromRGB(150, 105, 75), 14, "OutlawESP")
 end
 end
 OutlawESP = workspace.DescendantAdded:Connect(function(v)
 if v.Name == "Outlaw" and not v:FindFirstChild("OutlawESP") then
-LibraryESP:AddESP(v, "Outlaw", Color3.new(1), 14, "OutlawESP")
+LibraryESP:AddESP(v, "Outlaw", Color3.fromRGB(150, 105, 75), 14, "OutlawESP")
 end
 end)
 else
@@ -368,12 +428,12 @@ Callback = function(v)
 if v then
 for _,v in ipairs(workspace:GetDescendants()) do
 if v.Name == "Wolf" and not v:FindFirstChild("WolfESP") then
-LibraryESP:AddESP(v, "Walker", Color3.new(1), 14, "WolfESP")
+LibraryESP:AddESP(v, "Walker", Color3.fromRGB(80,80,80), 14, "WolfESP")
 end
 end
 WolfESP = workspace.DescendantAdded:Connect(function(v)
 if v.Name == "Wolf" and not v:FindFirstChild("WolfESP") then
-LibraryESP:AddESP(v, "Walker", Color3.new(1), 14, "WolfESP")
+LibraryESP:AddESP(v, "Walker", Color3.fromRGB(80,80,80), 14, "WolfESP")
 end
 end)
 else
@@ -387,12 +447,12 @@ Callback = function(v)
 if v then
 for _,v in ipairs(workspace:GetDescendants()) do
 if v.Name == "Unicorn" and not v:FindFirstChild("UnicornESP") then
-LibraryESP:AddESP(v, "Unicorn", Color3.new(1), 14, "UnicornESP")
+LibraryESP:AddESP(v, "Unicorn", Color3.new(1,0,1), 14, "UnicornESP")
 end
 end
 UnicornESP = workspace.DescendantAdded:Connect(function(v)
 if v.Name == "Unicorn" and not v:FindFirstChild("UnicornESP") then
-LibraryESP:AddESP(v, "Unicorn", Color3.new(1), 14, "UnicornESP")
+LibraryESP:AddESP(v, "Unicorn", Color3.new(1,0,1), 14, "UnicornESP")
 end
 end)
 else
@@ -406,12 +466,12 @@ Callback = function(v)
 if v then
 for _,v in ipairs(workspace:GetDescendants()) do
 if v.Name == "Walker" and not v:FindFirstChild("WalkerESP") then
-LibraryESP:AddESP(v, "Walker", Color3.new(1), 14, "WalkerESP")
+LibraryESP:AddESP(v, "Walker", Color3.new(0,1), 14, "WalkerESP")
 end
 end
 WalkerESP = workspace.DescendantAdded:Connect(function(v)
 if v.Name == "Walker" then
-LibraryESP:AddESP(v, "Walker", Color3.new(1), 14, "WalkerESP")
+LibraryESP:AddESP(v, "Walker", Color3.new(0,1), 14, "WalkerESP")
 end
 end)
 else
@@ -425,12 +485,12 @@ Callback = function(v)
 if v then
 for _,v in ipairs(workspace:GetDescendants()) do
 if v.Name == "Runner" and not v:FindFirstChild("RunnerESP") then
-LibraryESP:AddESP(v, "Runner", Color3.new(1), 14, "RunnerESP")
+LibraryESP:AddESP(v, "Runner", Color3.new(0,0.8), 14, "RunnerESP")
 end
 end
 RunnerESP = workspace.DescendantAdded:Connect(function(v)
 if v.Name == "Runner" and not v:FindFirstChild("RunnerESP") then
-LibraryESP:AddESP(v, "Runner", Color3.new(1), 14, "RunnerESP")
+LibraryESP:AddESP(v, "Runner", Color3.new(0,0.8), 14, "RunnerESP")
 end
 end)
 else
@@ -482,12 +542,12 @@ Callback = function(v)
 if v then
 for _,v in ipairs(workspace:GetDescendants()) do
 if v.Name == "Werewolf" and and not v:FindFirstChild("WerewolfESP") then
-LibraryESP:AddESP(v, "Werewolf", Color3.new(1), 14, "WerewolfESP")
+LibraryESP:AddESP(v, "Werewolf", Color3.fromRGB(150, 120, 95), 14, "WerewolfESP")
 end
 end
 WerewolfESP = workspace.DescendantAdded:Connect(function(v)
 if v.Name == "Werewolf" and and not v:FindFirstChild("WerewolfESP") then
-LibraryESP:AddESP(v, "Werewolf", Color3.new(1), 14, "WerewolfESP")
+LibraryESP:AddESP(v, "Werewolf", Color3.fromRGB(150, 120, 95), 14, "WerewolfESP")
 end
 end)
 else
