@@ -292,7 +292,7 @@ end
 end)
 end})
 Tabs.Main:AddToggle({
-Name = "Auto Navy Revolver",
+Name = "Auto Bolt Action Rifle",
 Callback = function(v)
 _G.AutoBoltActionRifle = v
 game:GetService("RunService").RenderStepped:Connect(function()
@@ -386,7 +386,7 @@ Callback = function(v)
 _G.FOV = v
 game:GetService("RunService").RenderStepped:Connect(function()
 if _G.FOV then
-workspace.Camera.FieldOfView = _G.FOV or 70
+workspace.Camera.FieldOfView = _G.SelectFOV or 70
 end
 end)
 end})
