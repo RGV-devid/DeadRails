@@ -288,6 +288,17 @@ game:GetService("RunService").RenderStepped:Connect(function()
 workspace.Terrain:FindFirstChild("Clouds").Enabled = not _G.Cloud
 end)
 end})
+Tabs.Graphics:AddToggle({
+Name = "Fullbright",
+Callback = function(v)
+_G.Fullbright = v
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.Fullbright then
+game.Lighting.GlobalShadows = false
+game.Lighting.OutdoorAmbient = Color3.new(1,1,1)
+end
+end)
+end})
 Tabs.Players:AddSection({"Players"})
 Tabs.Players:AddToggle({
 Name = "Speed Boost",
@@ -333,22 +344,60 @@ end
 end)
 end})
 Tabs.Visual:AddToggle({
-Name = "Enemies ESP",
+Name = "Outlaw ESP",
 Callback = function(v)
 if v then
 for _,v in ipairs(workspace:GetDescendants()) do
-if v.Parent.Name == "RuntimeItems" and v:FindFirstChild("Humanoid") then
-LibraryESP:AddESP(v, v.Name .. "\nHP:" .. v.Humanoid.Health .. "/" .. v.Humanoid.MaxHealth, Color3.new(1), 15, "EneESP")
+if v.Name == "Outlaw" then
+LibraryESP:AddESP(v, "Outlaw", Color3.new(1), 14, "OutlawESP")
 end
 end
-EnemiesESP = workspace.DescendantAdded:Connect(function(v)
-if v.Parent.Name == "RuntimeItems" and v:FindFirstChild("Humanoid") then
-LibraryESP:AddESP(v, v.Name .. "\nHP:" .. v.Humanoid.Health .. "/" .. v.Humanoid.MaxHealth, Color3.new(1), 15, "EneESP")
+OutlawESP = workspace.DescendantAdded:Connect(function(v)
+if v.Name == "Outlaw" then
+LibraryESP:AddESP(v, "Outlaw", Color3.new(1), 14, "OutlawESP")
 end
 end)
 else
-EnemiesESP:Disconnect()
-LibraryESP:Delete("EneESP")
+OutlawESP:Disconnect()
+LibraryESP:Delete("OutlawESP")
+end
+end})
+Tabs.Visual:AddToggle({
+Name = "Runner ESP",
+Callback = function(v)
+if v then
+for _,v in ipairs(workspace:GetDescendants()) do
+if v.Name == "Runner" then
+LibraryESP:AddESP(v, "Runner", Color3.new(1), 14, "RunnerESP")
+end
+end
+OutlawESP = workspace.DescendantAdded:Connect(function(v)
+if v.Name == "Runner" then
+LibraryESP:AddESP(v, "Runner", Color3.new(1), 14, "RunnerESP")
+end
+end)
+else
+RunnerESP:Disconnect()
+LibraryESP:Delete("RunnerESP")
+end
+end})
+Tabs.Visual:AddToggle({
+Name = "Vampire ESP",
+Callback = function(v)
+if v then
+for _,v in ipairs(workspace:GetDescendants()) do
+if v.Name == "Vampire" then
+LibraryESP:AddESP(v, "Vampire", Color3.new(1), 14, "VampireESP")
+end
+end
+VampireESP = workspace.DescendantAdded:Connect(function(v)
+if v.Name == "Vampire" then
+LibraryESP:AddESP(v, "Vampire", Color3.new(1), 14, "VampireESP")
+end
+end)
+else
+VampireESP:Disconnect()
+LibraryESP:Delete("VampireESP")
 end
 end})
 Tabs.Visual:AddToggle({
