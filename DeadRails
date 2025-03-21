@@ -363,6 +363,25 @@ LibraryESP:Delete("OutlawESP")
 end
 end})
 Tabs.Visual:AddToggle({
+Name = "Walker ESP",
+Callback = function(v)
+if v then
+for _,v in ipairs(workspace:GetDescendants()) do
+if v.Name == "Walker" then
+LibraryESP:AddESP(v, "Walker", Color3.new(1), 14, "WalkerESP")
+end
+end
+WalkerESP = workspace.DescendantAdded:Connect(function(v)
+if v.Name == "Walker" then
+LibraryESP:AddESP(v, "Walker", Color3.new(1), 14, "WalkerESP")
+end
+end)
+else
+WalkerESP:Disconnect()
+LibraryESP:Delete("WalkerESP")
+end
+end})
+Tabs.Visual:AddToggle({
 Name = "Runner ESP",
 Callback = function(v)
 if v then
@@ -379,6 +398,25 @@ end)
 else
 RunnerESP:Disconnect()
 LibraryESP:Delete("RunnerESP")
+end
+end})
+Tabs.Visual:AddToggle({
+Name = "Banner ESP",
+Callback = function(v)
+if v then
+for _,v in ipairs(workspace:GetDescendants()) do
+if v.Name == "Banner" then
+LibraryESP:AddESP(v, "Banner", Color3.new(1), 14, "BannerESP")
+end
+end
+BannerESP = workspace.DescendantAdded:Connect(function(v)
+if v.Name == "Banner" then
+LibraryESP:AddESP(v, "Banner", Color3.new(1), 14, "BannerESP")
+end
+end)
+else
+BannerESP:Disconnect()
+LibraryESP:Delete("BannerESP")
 end
 end})
 Tabs.Visual:AddToggle({
@@ -401,21 +439,51 @@ LibraryESP:Delete("VampireESP")
 end
 end})
 Tabs.Visual:AddToggle({
+Name = "Werewolf ESP",
+Callback = function(v)
+if v then
+for _,v in ipairs(workspace:GetDescendants()) do
+if v.Name == "Werewolf" then
+LibraryESP:AddESP(v, "Werewolf", Color3.new(1), 14, "WerewolfESP")
+end
+end
+WerewolfESP = workspace.DescendantAdded:Connect(function(v)
+if v.Name == "Werewolf" then
+LibraryESP:AddESP(v, "Werewolf", Color3.new(1), 14, "WerewolfESP")
+end
+end)
+else
+WerewolfESP:Disconnect()
+LibraryESP:Delete("WerewolfESP")
+end
+end})
+Tabs.Visual:AddToggle({
 Name = "Items ESP",
 Callback = function(v)
 if v then
 for _,v in ipairs(workspace:GetDescendants()) do
-if v.Parent.Name == "RuntimeItems" and not v:FindFirstChild("Humanoid") then
-LibraryESP:AddESP(v, v.Name .. "\nHP:" .. v.Humanoid.Health .. "/" .. v.Humanoid.MaxHealth, Color3.new(1), 15, "ItemESP")
+if v.Parent.Name == "RuntimeItems" and v:FindFirstChild("Humanoid") then
+LibraryESP:AddESP(v, v.Name, Color3.new(1), 15, "ItemESP")
 end
 end
 ItemsESP = workspace.DescendantAdded:Connect(function(v)
-if v.Parent.Name == "RuntimeItems" and not v:FindFirstChild("Humanoid") then
-LibraryESP:AddESP(v, v.Name .. "\nHP:" .. v.Humanoid.Health .. "/" .. v.Humanoid.MaxHealth, Color3.new(1), 15, "ItemESP")
+if v.Parent.Name == "RuntimeItems" and v:FindFirstChild("Humanoid") then
+LibraryESP:AddESP(v, v.Name, Color3.new(1), 15, "ItemESP")
 end
 end)
 else
 ItemsESP:Disconnect()
 LibraryESP:Delete("ItemESP")
 end
+end})
+Tabs.Visual:AddSection({"Setting ESP"})
+Tabs.Visual:AddToggle({
+Name = "Show Text",
+Callback = function(v)
+getgenv().TextESP = v
+end})
+Tabs.Visual:AddToggle({
+Name = "Rainbow Text",
+Callback = function(v)
+getgenv().RainbowESP = v
 end})
