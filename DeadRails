@@ -19,7 +19,17 @@ Button = { ImageColor3 = Color3.fromRGB(0,255,100), Image = "rbxassetid://958693
 Corner = { CornerRadius = UDim.new(0, 5) },
 })
 Instance.new("UIStroke", game:GetService("CoreGui")["redz Library V5"].Hub).Color = Color3.fromRGB(0,255,100)
-
+game:GetService("RunService").RenderStepped:Connect(function()
+if game:GetService("CoreGui").NPC_Lock:FindFirstChild("SettingsFrame") then
+game:GetService("CoreGui").NPC_Lock:FindFirstChild("SettingsFrame").UICorner.CornerRadius = UDim.new(0,5)
+local UiStroke = Instance.new("UIStroke", game:GetService("CoreGui").NPC_Lock.SettingsFrame)
+UiStroke.Color = Color3.fromRGB(0,255,100)
+end
+if game:GetService("CoreGui").NPC_Lock.SettingsFrame:FindFirstChild("TextLabel") then
+local UiCorner = Instance.new("UICorner", game:GetService("CoreGui").NPC_Lock.SettingsFrame.TextLabel)
+UiCorner.CornerRadius = UDim.new(0,5)
+end
+end)
 local Tabs = {
 Main = Window:MakeTab({"Main"}),
 Graphics = Window:MakeTab({"Graphics"}),
@@ -351,10 +361,24 @@ game.Lighting.OutdoorAmbient = Color3.new(1,1,1)
 end
 end)
 end})
+Tabs.Graphics:AddSection({"OP"})
+Tabs.Graphics:AddToggle({
+Name = "NPCs Lock GUI",
+Callback = function(v)
+if v then
+loadstring(game:HttpGet("https://github.com/RGV-devid/DeadRails/blob/main/NPC_Lock?raw=true"))()
+else
+for _,v in pairs(game.CoreGui:GetDescendants()) do
+if v.Name == "NPC_Lock" then
+v:Destroy()
+end
+end
+end
+end})
 Tabs.Players:AddSection({"Players"})
 Tabs.Players:AddSlider({
   Name = "Walkspeed",
-  Min = 1,
+  Min = 16,
   Max = 17.5,
   Increase = 0.5,
   Default = 16,
