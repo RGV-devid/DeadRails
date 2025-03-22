@@ -1,390 +1,165 @@
-local v0 = game:GetService("Players");
-local v1 = v0.LocalPlayer;
-v1.CameraMode = Enum.CameraMode.Classic;
-local v4 = game:GetService("RunService");
-local v5 = game:GetService("StarterGui");
-local v6 = workspace.CurrentCamera;
-local v7 = Instance.new("ScreenGui");
-v7.Name = "NPC_Lock";
-v7.Parent = game:GetService("CoreGui");
-local v10 = Instance.new("TextButton");
-v10.Name = "NPC Lock";
-v10.Size = UDim2.new(952 - (802 + 150), 403 - 253, 0 - 0, 37 + 13);
-v10.Position = UDim2.new(997.5 - (915 + 82), -(212 - 137), 0.9 + 0, -(32 - 7));
-v10.BackgroundColor3 = Color3.new(1187 - (1069 + 118), 0 - 0, 0 - 0);
-v10.TextColor3 = Color3.fromRGB(0,255,100)
-v10.Text = "OFF";
-v10.Font = Enum.Font.Oswald;
-v10.TextScaled = true;
-v10.TextSize = 20 + 0;
-v10.Parent = v7;
-local v22 = Instance.new("TextButton");
-v22.Name = "Settings";
-v22.Size = UDim2.new(791 - (368 + 423), 157 - 107, 18 - (10 + 8), 50);
-v22.Position = UDim2.new(0.95, -(192 - 142), 442.05 - (416 + 26), 0 - 0);
-v22.BackgroundColor3 = Color3.new(0, 0, 0);
-v22.TextColor3 = Color3.fromRGB(0,255,100)
-v22.Text = "+";
-v22.Font = Enum.Font.Oswald;
-v22.TextScaled = true;
-v22.TextSize = 35 - 15;
-v22.Parent = v7;
-local v33 = Instance.new("UICorner");
-v33.CornerRadius = UDim.new(0, 450 - (145 + 293));
-v33.Parent = v10;
-local v36 = Instance.new("UICorner");
-v36.CornerRadius = UDim.new(430 - (44 + 386), 1498 - (998 + 488));
-v36.Parent = v22;
-local v39 = false;
-local v40, v41, v42;
-local function v43(v62)
-	local v63 = 0 + 0;
-	local v64;
-	while true do
-		if (v63 == (0 + 0)) then
-			v64 = v62.Position - v41;
-			v22.Position = UDim2.new(v42.X.Scale, v42.X.Offset + v64.X, v42.Y.Scale, v42.Y.Offset + v64.Y);
-			break;
-		end
-	end
+
+
+
+
+
+
+
+
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+player.CameraMode = Enum.CameraMode.Classic
+local runService = game:GetService("RunService")
+local StarterGui = game:GetService("StarterGui")
+local camera = workspace.CurrentCamera
+ 
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "NPC_Lock"
+screenGui.Parent = game:GetService("CoreGui")
+
+local button = Instance.new("TextButton", screenGui)
+button.Name = "NPC Lock"
+button.Size = UDim2.new(0, 150, 0, 50)
+button.Position = UDim2.new(0.899999976, -48, 0, -37)
+button.BackgroundColor3 = Color3.new(0, 0, 0)
+button.TextColor3 = Color3.new(0, 1, 0.3)
+button.Text = "NPCs Lock\nOFF"
+button.Font = Enum.Font.Code
+button.TextScaled = true
+button.TextSize = 20
+ 
+local uicorner = Instance.new("UICorner")
+uicorner.CornerRadius = UDim.new(0, 12)
+uicorner.Parent = button
+
+local UiStroke = Instance.new("UIStroke", button)
+UiStroke.Color = Color3.fromRGB(0,255,100)
+
+local dragging = false
+local dragInput, dragStart, startPos
+ 
+local function update(input)
+    local delta = input.Position - dragStart
+    button.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
 end
-v22.InputBegan:Connect(function(v65)
-	if ((v65.UserInputType == Enum.UserInputType.MouseButton1) or (v65.UserInputType == Enum.UserInputType.Touch)) then
-		local v92 = 0;
-		while true do
-			if (v92 == (773 - (201 + 571))) then
-				v42 = v22.Position;
-				v65.Changed:Connect(function()
-					if (v65.UserInputState == Enum.UserInputState.End) then
-						v39 = false;
-					end
-				end);
-				break;
-			end
-			if (v92 == 0) then
-				v39 = true;
-				v41 = v65.Position;
-				v92 = 1;
-			end
-		end
-	end
-end);
-v22.InputChanged:Connect(function(v66)
-	if ((v66.UserInputType == Enum.UserInputType.MouseMovement) or (v66.UserInputType == Enum.UserInputType.Touch)) then
-		v40 = v66;
-	end
-end);
-game:GetService("UserInputService").InputChanged:Connect(function(v67)
-	if (v39 and (v67 == v40)) then
-		v43(v67);
-	end
-end);
-local v44 = {"Walker","Runner","Banker","Outlaw","Vampire","Wolf","Werewolf","Horse","Unicorn"};
-local v45 = {};
-for v68, v69 in ipairs(v44) do
-	v45[v69] = true;
+ 
+button.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        dragging = true
+        dragStart = input.Position
+        startPos = button.Position
+ 
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
+end)
+ 
+button.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+        dragInput = input
+    end
+end)
+ 
+game:GetService("UserInputService").InputChanged:Connect(function(input)
+    if dragging and input == dragInput then
+        update(input)
+    end
+end)
+ 
+local npcLock = false
+local lastTarget = nil
+local toggleLoop
+ 
+local function addPlayerHighlight()
+    if player.Character then
+        local highlight = player.Character:FindFirstChild("PlayerHighlightESP")
+        if not highlight then
+            highlight = Instance.new("Highlight")
+            highlight.Name = "PlayerHighlightESP"
+            highlight.FillColor = Color3.new(0,1,0.3)
+            highlight.OutlineColor = Color3.new(0,1,0.3)
+            highlight.FillTransparency = 0.5
+            highlight.OutlineTransparency = 0
+            highlight.Parent = player.Character
+        end
+    end
 end
-local function v46(v71)
-	local v72 = 0;
-	while true do
-		if (v72 == 0) then
-			for v142, v143 in pairs(v45) do
-				if v71:find(v142) then
-					return v142;
-				end
-			end
-			return nil;
-		end
-	end
+ 
+local function removePlayerHighlight()
+    if player.Character and player.Character:FindFirstChild("PlayerHighlightESP") then
+        player.Character.PlayerHighlightESP:Destroy()
+    end
 end
-local v47 = false;
-local v48, v49, v50;
-local function v51(v73)
-	local v74 = v73.Position - v49;
-	v10.Position = UDim2.new(v50.X.Scale, v50.X.Offset + v74.X, v50.Y.Scale, v50.Y.Offset + v74.Y);
+ 
+local function getClosestNPC()
+    local closestNPC = nil
+    local closestDistance = math.huge
+ 
+    for _, object in ipairs(workspace:GetDescendants()) do
+        if object:IsA("Model") then
+            local humanoid = object:FindFirstChild("Humanoid") or object:FindFirstChildWhichIsA("Humanoid")
+            local hrp = object:FindFirstChild("HumanoidRootPart") or object.PrimaryPart
+            if humanoid and hrp and humanoid.Health > 0 then
+                local isPlayer = false
+                for _, pl in ipairs(Players:GetPlayers()) do
+                    if pl.Character == object then
+                        isPlayer = true
+                        break
+                    end
+                end
+                if not isPlayer then
+                    local distance = (hrp.Position - player.Character.HumanoidRootPart.Position).Magnitude
+                    if distance < closestDistance then
+                        closestDistance = distance
+                        closestNPC = object
+                    end
+                end
+            end
+        end
+    end
+ 
+    return closestNPC
 end
-v10.InputBegan:Connect(function(v76)
-	if ((v76.UserInputType == Enum.UserInputType.MouseButton1) or (v76.UserInputType == Enum.UserInputType.Touch)) then
-		v47 = true;
-		v49 = v76.Position;
-		v50 = v10.Position;
-		v76.Changed:Connect(function()
-			if (v76.UserInputState == Enum.UserInputState.End) then
-				v47 = false;
-			end
-		end);
-	end
-end);
-v10.InputChanged:Connect(function(v77)
-	if ((v77.UserInputType == Enum.UserInputType.MouseMovement) or (v77.UserInputType == Enum.UserInputType.Touch)) then
-		v48 = v77;
-	end
-end);
-game:GetService("UserInputService").InputChanged:Connect(function(v78)
-	if (v47 and (v78 == v48)) then
-		v51(v78);
-	end
-end);
-local function v52()
-	if (v1.Character and not v1.Character:FindFirstChild("PlayerHighlightESP")) then
-		local v95 = Instance.new("Highlight");
-		v95.Name = "PlayerHighlightESP";
-		v95.FillColor = Color3.fromRGB(0,255,100)
-		v95.OutlineColor = Color3.fromRGB(0,255,100)
-		v95.FillTransparency = 0.5 - 0;
-		v95.OutlineTransparency = 1080 - (1020 + 60);
-		v95.Parent = v1.Character;
-	end
-end
-local function v53()
-	if (v1.Character and v1.Character:FindFirstChild("PlayerHighlightESP")) then
-		v1.Character.PlayerHighlightESP:Destroy();
-	end
-end
-local v54 = {};
-local function v55()
-	local v79 = 1423 - (630 + 793);
-	local v80;
-	while true do
-		if (v79 == (0 - 0)) then
-			v80 = {};
-			for v144, v145 in ipairs(workspace:GetDescendants()) do
-				if v145:IsA("Model") then
-					local v150 = v145:FindFirstChild("Humanoid") or v145:FindFirstChildWhichIsA("Humanoid");
-					local v151 = v145:FindFirstChild("HumanoidRootPart") or v145.PrimaryPart;
-					if (v150 and v151 and (v150.Health > 0)) then
-						local v168 = false;
-						for v172, v173 in ipairs(v0:GetPlayers()) do
-							if (v173.Character == v145) then
-								v168 = true;
-								break;
-							end
-						end
-						if not v168 then
-							local v174 = v46(v145.Name);
-							if (v174 and v45[v174]) then
-								table.insert(v80, v145);
-							end
-						end
-					end
-				end
-			end
-			v79 = 4 - 3;
-		end
-		if (v79 == 1) then
-			v54 = v80;
-			break;
-		end
-	end
-end
-spawn(function()
-	while true do
-		local v87 = 0 + 0;
-		while true do
-			if (v87 == (0 - 0)) then
-				v55();
-				wait(1747.1 - (760 + 987));
-				break;
-			end
-		end
-	end
-end);
-local function v56()
-	if not (v1.Character and v1.Character:FindFirstChild("HumanoidRootPart")) then
-		return nil;
-	end
-	local v81 = nil;
-	local v82 = math.huge;
-	local v83 = v1.Character.HumanoidRootPart.Position;
-	for v88, v89 in ipairs(v54) do
-		local v90 = 1913 - (1789 + 124);
-		local v91;
-		while true do
-			if (v90 == (766 - (745 + 21))) then
-				v91 = v89:FindFirstChild("HumanoidRootPart") or v89.PrimaryPart;
-				if v91 then
-					local v152 = (v91.Position - v83).Magnitude;
-					if (v152 < v82) then
-						v82 = v152;
-						v81 = v89;
-					end
-				end
-				break;
-			end
-		end
-	end
-	return v81;
-end
-local function v57(v84, v85)
-	if v85 then
-		v84.BackgroundColor3 = Color3.new(0, 1 + 0, 0 - 0);
-	else
-		v84.BackgroundColor3 = Color3.new(1, 0 - 0, 0);
-	end
-end
-local v58 = false;
-local function v59()
-	v58 = not v58;
-	if v58 then
-		local v105 = Instance.new("Frame");
-		v105.Name = "SettingsFrame";
-		v105.Size = UDim2.new(0, 270, 0, 3 + 297);
-		v105.Position = UDim2.new(0.5 + 0, -(1190 - (87 + 968)), 0.5 - 0, -(137 + 13));
-		v105.BackgroundColor3 = Color3.fromRGB(0,0,0)
-		v105.Parent = v7;
-		local v111 = Instance.new("UICorner");
-		v111.CornerRadius = UDim.new(0 - 0, 1829 - (1703 + 114));
-		v111.Parent = v105;
-		local v114 = Instance.new("TextLabel");
-		v114.Size = UDim2.new(702 - (376 + 325), 0 - 0, 0 - 0, 40);
-		v114.Position = UDim2.new(0 + 0, 0, 0 - 0, 14 - (9 + 5));
-		v114.BackgroundColor3 = Color3.new(0.1, 376.1 - (85 + 291), 1265.1 - (243 + 1022));
-		v114.TextColor3 = Color3.new(3 - 2, 1 + 0, 1181 - (1123 + 57));
-		v114.Text = "Select NPCs";
-		v114.Font = Enum.Font.Oswald;
-		v114.TextScaled = true;
-		v114.Parent = v105;
-		local v124 = Instance.new("ScrollingFrame");
-		v124.Size = UDim2.new(1 + 0, 254 - (163 + 91), 1, -(1970 - (1869 + 61)));
-		v124.Position = UDim2.new(0 + 0, 0, 0 - 0, 40);
-		v124.BackgroundTransparency = 1 - 0;
-		v124.Parent = v105;
-		local v129 = Instance.new("UIGridLayout");
-		v129.CellSize = UDim2.new(0.48 + 0, 0 - 0, 0 + 0, 1514 - (1329 + 145));
-		v129.CellPadding = UDim2.new(971 - (140 + 831), 1855 - (1409 + 441), 718 - (15 + 703), 3 + 2);
-		v129.Parent = v124;
-		for v137, v138 in ipairs(v44) do
-			local v139 = 0;
-			local v140;
-			local v141;
-			while true do
-				if (v139 == (439 - (262 + 176))) then
-					v140.TextColor3 = Color3.new(1722 - (345 + 1376), 1, 689 - (198 + 490));
-					v140.Text = v138 .. ": " .. ((v45[v138] and "ON") or "OFF");
-					v140.Font = Enum.Font.Oswald;
-					v139 = 2;
-				end
-				if (v139 == 2) then
-					v140.TextScaled = true;
-					v140.Parent = v124;
-					v141 = Instance.new("UICorner");
-					v139 = 3;
-				end
-				if (v139 == (13 - 10)) then
-					v141.CornerRadius = UDim.new(0 - 0, 1214 - (696 + 510));
-					v141.Parent = v140;
-					v57(v140, v45[v138]);
-					v139 = 7 - 3;
-				end
-				if (v139 == 4) then
-					v140.MouseButton1Click:Connect(function()
-						v45[v138] = not v45[v138];
-						v140.Text = v138 .. ": " .. ((v45[v138] and "ON") or "OFF");
-						v57(v140, v45[v138]);
-					end);
-					break;
-				end
-				if (v139 == (1262 - (1091 + 171))) then
-					v140 = Instance.new("TextButton");
-					v140.Size = UDim2.new(0 + 0, 377 - 257, 0 - 0, 414 - (123 + 251));
-					v140.BackgroundColor3 = Color3.new(0.3, 0.3 - 0, 698.3 - (208 + 490));
-					v139 = 1;
-				end
-			end
-		end
-		task.wait(0.1 + 0);
-		v124.CanvasSize = UDim2.new(0 + 0, 0, 0, v129.AbsoluteContentSize.Y);
-	else
-		local v134 = 836 - (660 + 176);
-		local v135;
-		while true do
-			if (v134 == (0 + 0)) then
-				v135 = v7:FindFirstChild("SettingsFrame");
-				if v135 then
-					v135:Destroy();
-				end
-				break;
-			end
-		end
-	end
-end
-v22.MouseButton1Click:Connect(v59);
-local v60 = false;
-local v61;
-v10.MouseButton1Click:Connect(function()
-	local v86 = 202 - (14 + 188);
-	while true do
-		if (v86 == (675 - (534 + 141))) then
-			v60 = not v60;
-			if v60 then
-				v10.Text = "ON";
-				v61 = v4.RenderStepped:Connect(function()
-					local v163 = v56();
-					if (v163 and v163:FindFirstChild("Humanoid")) then
-						local v169 = 0;
-						local v170;
-						while true do
-							if (v169 == (0 + 0)) then
-								v170 = v163:FindFirstChild("Humanoid");
-								if (v170.Health > 0) then
-									local v175 = 0 + 0;
-									while true do
-										if (v175 == (0 + 0)) then
-											v6.CameraSubject = v170;
-											v52();
-											break;
-										end
-									end
-								else
-									local v176 = 0 - 0;
-									while true do
-										if (v176 == (1 - 0)) then
-											if (v1.Character and v1.Character:FindFirstChild("Humanoid")) then
-												v6.CameraSubject = v1.Character:FindFirstChild("Humanoid");
-											end
-											break;
-										end
-										if (v176 == 0) then
-											v5:SetCore("SendNotification", {Title="Killed NPC",Text=v163.Name,Duration=0.4});
-											v53();
-											v176 = 1;
-										end
-									end
-								end
-								break;
-							end
-						end
-					else
-						local v171 = 0 - 0;
-						while true do
-							if (v171 == 0) then
-								if (v1.Character and v1.Character:FindFirstChild("Humanoid")) then
-									v6.CameraSubject = v1.Character:FindFirstChild("Humanoid");
-								end
-								v53();
-								break;
-							end
-						end
-					end
-				end);
-			else
-				v10.Text = "OFF";
-				if v61 then
-					local v166 = 0 + 0;
-					while true do
-						if (v166 == (0 + 0)) then
-							v61:Disconnect();
-							v61 = nil;
-							break;
-						end
-					end
-				end
-				v53();
-				if (v1.Character and v1.Character:FindFirstChild("Humanoid")) then
-					v6.CameraSubject = v1.Character:FindFirstChild("Humanoid");
-				end
-			end
-			break;
-		end
-	end
-end);
+ 
+button.MouseButton1Click:Connect(function()
+    npcLock = not npcLock
+    if npcLock then
+        button.Text = "NPCs Lock\nON"
+        toggleLoop = runService.RenderStepped:Connect(function()
+            local npc = getClosestNPC()
+            if npc and npc:FindFirstChild("Humanoid") then
+                local npcHumanoid = npc:FindFirstChild("Humanoid")
+                if npcHumanoid.Health > 0 then
+                    camera.CameraSubject = npcHumanoid
+                    lastTarget = npc
+                    addPlayerHighlight()
+                else
+                    lastTarget = nil
+                    removePlayerHighlight()
+                    if player.Character and player.Character:FindFirstChild("Humanoid") then
+                        camera.CameraSubject = player.Character:FindFirstChild("Humanoid")
+                    end
+                end
+            else
+                if player.Character and player.Character:FindFirstChild("Humanoid") then
+                    camera.CameraSubject = player.Character:FindFirstChild("Humanoid")
+                end
+                lastTarget = nil
+                removePlayerHighlight()
+            end
+        end)
+    else
+        button.Text = "NPCs Lock\nOFF"
+        if toggleLoop then
+            toggleLoop:Disconnect()
+            toggleLoop = nil
+        end
+        removePlayerHighlight()
+        if player.Character and player.Character:FindFirstChild("Humanoid") then
+            camera.CameraSubject = player.Character:FindFirstChild("Humanoid")
+        end
+    end
+end)
