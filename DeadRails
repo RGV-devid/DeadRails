@@ -12,7 +12,7 @@ local Library = loadstring(game:HttpGet("https://github.com/realredz/RedzLibV5/b
 
 local LibraryESP = loadstring(game:HttpGet("https://github.com/RGV-devid/Scripts/blob/main/ESP?raw=true"))()
 
-local Window = Library:MakeWindow({"YOUHUB | Dead Rails (Game)", "v0.0.1", "testando-redzLibv5.json"})
+local Window = Library:MakeWindow({"YOUHUB | Dead Rails (Game)", "v0.0.1", "testando | redz lib v5.lua"})
 
 local Button = Window:AddMinimizeButton({
 Button = { ImageColor3 = Color3.fromRGB(0,255,100), Image = "rbxassetid://95869322194132", BackgroundColor3 = Color3.fromRGB(), BackgroundTransparency = 0 },
