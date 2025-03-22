@@ -401,25 +401,6 @@ end
 end})
 Tabs.Players:AddSection({"Players"})
 Tabs.Players:AddSlider({
-  Name = "Walkspeed",
-  Min = 16,
-  Max = 17.5,
-  Increase = 0.5,
-  Default = 16,
-  Callback = function(v)
-_G.SelectSpeed = v
-end})
-Tabs.Players:AddToggle({
-Name = "Speed Boost",
-Callback = function(v)
-_G.Speed = v
-game:GetService("RunService").RenderStepped:Connect(function()
-if _G.Speed then
-game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = _G.SelectSpeed
-end
-end)
-end})
-Tabs.Players:AddSlider({
   Name = "Field Of View",
   Min = 70,
   Max = 120,
