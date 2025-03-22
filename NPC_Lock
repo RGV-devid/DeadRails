@@ -102,7 +102,7 @@ local function getClosestNPC()
         if object:IsA("Model") then
             local humanoid = object:FindFirstChild("Humanoid") or object:FindFirstChildWhichIsA("Humanoid")
             local hrp = object:FindFirstChild("HumanoidRootPart") or object.PrimaryPart
-            if humanoid and hrp and humanoid.Health > 0 then
+            if humanoid and hrp and humanoid.Health > 0 and not object.Name == "Horse" or not object.Name == "Unicorn" then
                 local isPlayer = false
                 for _, pl in ipairs(Players:GetPlayers()) do
                     if pl.Character == object then
