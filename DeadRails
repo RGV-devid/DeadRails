@@ -735,6 +735,12 @@ end
 end
 end
 end})
+Tabs.Graphics:AddButton({
+Name = "TP The Bridge",
+Callback = function(v)
+local plr = game.Players.LocalPlayer.Character
+plr.HumanoidRootPart.CFrame = CFrame.new(-374.5484924316406, -70.22786712646484, -49202.4921875)
+end})
 Tabs.Players:AddSection({"Players"})
 Tabs.Players:AddSlider({
   Name = "Field Of View",
