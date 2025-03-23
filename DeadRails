@@ -12,7 +12,7 @@ local Library = loadstring(game:HttpGet("https://github.com/realredz/RedzLibV5/b
 
 local LibraryESP = loadstring(game:HttpGet("https://github.com/RGV-devid/Scripts/blob/main/ESP?raw=true"))()
 
-local Window = Library:MakeWindow({"YOUHUB | Dead Rails (Game)", "v0.0.1", "testando | redz lib v5.lua"})
+local Window = Library:MakeWindow({"YOUHUB | Dead Rails (Game)", "v0.0.1", "redz library V5.json"})
 
 local Button = Window:AddMinimizeButton({
 Button = { ImageColor3 = Color3.fromRGB(0,255,100), Image = "rbxassetid://95869322194132", BackgroundColor3 = Color3.fromRGB(), BackgroundTransparency = 0 },
@@ -68,7 +68,7 @@ Tabs.Main:AddToggle({
 Name = "Auto Bond",
 Callback = function(v)
 _G.AutoBond = v
-while _G.AutoBond do
+game:GetService("RunService").RenderStepped:Connect(function()
 local args = {
     [1] = workspace.RuntimeItems.Bond
 }
@@ -397,7 +397,7 @@ local args = {
 
 game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
 wait(1)
-end
+end)
 end})
 Tabs.Main:AddToggle({
 Name = "Auto Bandage",
@@ -760,6 +760,18 @@ workspace.Camera.FieldOfView = _G.SelectFOV or 70
 end
 end)
 end})
+if Enabled.InfJump then
+Tabs.Players:AddToggle({
+Name = "Infjump",
+Callback = function(v)
+_G.Infjump = v
+game:GetService("UserInputService").JumpRequest:connect(function()
+	if _G.Infjump then
+		game:GetService"Players".LocalPlayer.Character:FindFirstChildOfClass'Humanoid':ChangeState("Jumping")
+	end
+end)
+end})
+end
 Tabs.Players:AddToggle({
 Name = "Noclip",
 Callback = function(v)
@@ -897,7 +909,7 @@ LibraryESP:AddESP(v, "Walker", Color3.new(0,1), 14, "WalkerESP")
 end
 end
 WalkerESP = workspace.DescendantAdded:Connect(function(v)
-wait(1)
+wait(1.5)
 if v.Name == "Walker" and not v:FindFirstChild("WalkerESP") then
 LibraryESP:AddESP(v, "Walker", Color3.new(0,1), 14, "WalkerESP")
 end
@@ -917,7 +929,7 @@ LibraryESP:AddESP(v, "Runner", Color3.new(0,0.8), 14, "RunnerESP")
 end
 end
 RunnerESP = workspace.DescendantAdded:Connect(function(v)
-wait(1)
+wait(1.5)
 if v.Name == "Runner" and not v:FindFirstChild("RunnerESP") then
 LibraryESP:AddESP(v, "Runner", Color3.new(0,0.8), 14, "RunnerESP")
 end
@@ -937,7 +949,7 @@ LibraryESP:AddESP(v, "Banner", Color3.fromRGB(255,100,100), 14, "BannerESP")
 end
 end
 BannerESP = workspace.DescendantAdded:Connect(function(v)
-wait(1)
+wait(1.5)
 if v.Name == "Banner" and not v:FindFirstChild("BannerESP") then
 LibraryESP:AddESP(v, "Banner", Color3.fromRGB(255,100,100), 14, "BannerESP")
 end
