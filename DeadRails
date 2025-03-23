@@ -760,7 +760,7 @@ workspace.Camera.FieldOfView = _G.SelectFOV or 70
 end
 end)
 end})
-if Enabled.InfJump then
+if _G.infjump then
 Tabs.Players:AddToggle({
 Name = "Infjump",
 Callback = function(v)
