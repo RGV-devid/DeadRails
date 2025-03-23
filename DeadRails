@@ -68,8 +68,7 @@ Tabs.Main:AddToggle({
 Name = "Auto Bond",
 Callback = function(v)
 _G.AutoBond = v
-game:GetService("RunService").RenderStepped:Connect(function()
-if _G.AutoBond then
+while _G.AutoBond do
 local args = {
     [1] = workspace.RuntimeItems.Bond
 }
@@ -397,8 +396,8 @@ local args = {
 }
 
 game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
+wait(1)
 end
-end)
 end})
 Tabs.Main:AddToggle({
 Name = "Auto Bandage",
