@@ -20,17 +20,6 @@ Corner = { CornerRadius = UDim.new(0, 5) },
 })
 Instance.new("UIStroke", game:GetService("CoreGui")["redz Library V5"].Hub).Color = Color3.fromRGB(0,255,100)
 Instance.new("UIStroke", game:GetService("CoreGui")["redz Library V5"].ImageButton).Color = Color3.fromRGB(0,255,100)
-game:GetService("RunService").RenderStepped:Connect(function()
-if game:GetService("CoreGui").NPC_Lock:FindFirstChild("SettingsFrame") then
-game:GetService("CoreGui").NPC_Lock:FindFirstChild("SettingsFrame").UICorner.CornerRadius = UDim.new(0,5)
-local UiStroke = Instance.new("UIStroke", game:GetService("CoreGui").NPC_Lock.SettingsFrame)
-UiStroke.Color = Color3.fromRGB(0,255,100)
-end
-if game:GetService("CoreGui").NPC_Lock.SettingsFrame:FindFirstChild("TextLabel") then
-local UiCorner = Instance.new("UICorner", game:GetService("CoreGui").NPC_Lock.SettingsFrame.TextLabel)
-UiCorner.CornerRadius = UDim.new(0,5)
-end
-end)
 local Tabs = {
 Main = Window:MakeTab({"Main"}),
 Graphics = Window:MakeTab({"Graphics"}),
@@ -45,7 +34,9 @@ Callback = function(v)
 _G.AutoMoneyBag = v
 game:GetService("RunService").RenderStepped:Connect(function()
 if _G.AutoMoneyBag then
+if workspace.RuntimeItems:FindFirstChild("Moneybag") then
 fireproximityprompt(workspace.RuntimeItems.Moneybag.MoneyBag.CollectPrompt)
+end
 end
 end)
 end})
@@ -56,347 +47,14 @@ Callback = function(v)
 _G.AutoSnakeOil = v
 game:GetService("RunService").RenderStepped:Connect(function()
 if _G.AutoSnakeOil then
+if workspace.RuntimeItems:FindFirstChild("Snake Oil") then
 local args = {
     [1] = workspace.RuntimeItems:FindFirstChild("Snake Oil")
 }
 
 game:GetService("ReplicatedStorage").Remotes.Tool.PickUpTool:FireServer(unpack(args))
 end
-end)
-end})
-Tabs.Main:AddToggle({
-Name = "Auto Bond",
-Callback = function(v)
-_G.AutoBond = v
-game:GetService("RunService").RenderStepped:Connect(function()
-local args = {
-    [1] = workspace.RuntimeItems.Bond
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[2]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[3]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[4]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[5]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[6]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[7]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[8]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[9]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[10]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[11]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[12]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[13]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[14]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[15]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[16]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[17]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[18]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[19]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[20]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[21]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[22]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[23]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[24]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[25]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[26]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[27]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[28]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[29]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[30]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[31]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[32]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[33]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[34]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[35]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[36]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[37]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[38]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[39]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[40]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[41]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[42]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[43]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[44]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[45]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[46]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[47]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[48]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[49]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[50]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[51]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[52]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[53]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[54]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[55]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[56]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[57]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[58]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[59]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-local args = {
-    [1] = workspace.RuntimeItems:GetChildren()[60]
-}
-
-game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
-wait(1)
+end
 end)
 end})
 Tabs.Main:AddToggle({
@@ -405,11 +63,13 @@ Callback = function(v)
 _G.AutoBandage = v
 game:GetService("RunService").RenderStepped:Connect(function()
 if _G.AutoBandage then
+if workspace.RuntimeItems:FindFirstChild("Bandage") then
 local args = {
     [1] = workspace.RuntimeItems:FindFirstChild("Bandage")
 }
 
 game:GetService("ReplicatedStorage").Remotes.Tool.PickUpTool:FireServer(unpack(args))
+end
 end
 end)
 end})
@@ -494,12 +154,14 @@ Name = "Auto Use Snake Oil (Must Hold)",
 Callback = function(v)
 _G.AutoUseSnakeOil = v
 game:GetService("RunService").RenderStepped:Connect(function()
+if game.Players.LocalPlayer.Character:FindFirstChild("Snake Oil") then
 if _G.AutoUseSnakeOil and game.Players.LocalPlayer.Character.Humanoid.Health < _G.HealthUseSnakeOil then
 local args = {
     [1] = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Snake Oil")
 }
 
 game:GetService("Players").LocalPlayer.Character:FindFirstChild("Snake Oil").Use:FireServer(unpack(args))
+end
 end
 end)
 end})
@@ -518,8 +180,10 @@ Name = "Auto Use Bandage (Must Hold)",
 Callback = function(v)
 _G.AutoUseBandage = v
 game:GetService("RunService").RenderStepped:Connect(function()
+if game.Players.LocalPlayer.Character:FindFirstChild("Bandage") then
 if _G.AutoUseBandage and game.Players.LocalPlayer.Character.Humanoid.Health < _G.HealthUseBandage then
 game:GetService("Players").LocalPlayer.Character:FindFirstChild("Bandage").Use:FireServer()
+end
 end
 end)
 end})
@@ -529,12 +193,14 @@ Name = "Auto Revolver Shells",
 Callback = function(v)
 _G.AutoRevolverShells = v
 game:GetService("RunService").RenderStepped:Connect(function()
+if workspace.RuntimeItems:FindFirstChild("RevolverAmmo") then
 if _G.AutoRevolverShells then
 local args = {
     [1] = workspace.RuntimeItems:FindFirstChild("RevolverAmmo")
 }
 
 game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
+end
 end
 end)
 end})
@@ -543,12 +209,14 @@ Name = "Auto Shotgun Shells",
 Callback = function(v)
 _G.AutoShotgunShells = v
 game:GetService("RunService").RenderStepped:Connect(function()
+if workspace.RuntimeItems:FindFirstChild("ShotgunShells") then
 if _G.AutoShotgunShells then
 local args = {
     [1] = workspace.RuntimeItems:FindFirstChild("ShotgunShells")
 }
 
 game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
+end
 end
 end)
 end})
@@ -557,12 +225,14 @@ Name = "Auto Rifle Shells",
 Callback = function(v)
 _G.AutoRifleShells = v
 game:GetService("RunService").RenderStepped:Connect(function()
+if workspace.RuntimeItems:FindFirstChild("RifleAmmo") then
 if _G.AutoRifleShells then
 local args = {
     [1] = workspace.RuntimeItems:FindFirstChild("RifleAmmo")
 }
 
 game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(unpack(args))
+end
 end
 end)
 end})
@@ -572,12 +242,14 @@ Name = "Auto Revolver",
 Callback = function(v)
 _G.AutoRevolver = v
 game:GetService("RunService").RenderStepped:Connect(function()
+if workspace.RuntimeItems:FindFirstChild("Revolver") then
 if _G.AutoRevolver then
 local args = {
     [1] = workspace.RuntimeItems:FindFirstChild("Revolver")
 }
 
 game:GetService("ReplicatedStorage").Remotes.Tool.PickUpTool:FireServer(unpack(args))
+end
 end
 end)
 end})
@@ -586,12 +258,14 @@ Name = "Auto Navy Revolver",
 Callback = function(v)
 _G.AutoNavyRevolver = v
 game:GetService("RunService").RenderStepped:Connect(function()
+if workspace.RuntimeItems:FindFirstChild("Navy Revolver") then
 if _G.AutoNavyRevolver then
 local args = {
     [1] = workspace.RuntimeItems:FindFirstChild("Navy Revolver")
 }
 
 game:GetService("ReplicatedStorage").Remotes.Tool.PickUpTool:FireServer(unpack(args))
+end
 end
 end)
 end})
@@ -600,12 +274,14 @@ Name = "Auto Mauser C96",
 Callback = function(v)
 _G.AutoMauserC96 = v
 game:GetService("RunService").RenderStepped:Connect(function()
+if workspace.RuntimeItems:FindFirstChild("Mauser C96") then
 if _G.AutoMauserC96 then
 local args = {
     [1] = workspace.RuntimeItems:FindFirstChild("Mauser C96")
 }
 
 game:GetService("ReplicatedStorage").Remotes.Tool.PickUpTool:FireServer(unpack(args))
+end
 end
 end)
 end})
@@ -614,12 +290,14 @@ Name = "Auto Shotgun",
 Callback = function(v)
 _G.AutoShotgun = v
 game:GetService("RunService").RenderStepped:Connect(function()
+if workspace.RuntimeItems:FindFirstChild("Shotgun") then
 if _G.AutoShotgun then
 local args = {
     [1] = workspace.RuntimeItems:FindFirstChild("Shotgun")
 }
 
 game:GetService("ReplicatedStorage").Remotes.Tool.PickUpTool:FireServer(unpack(args))
+end
 end
 end)
 end})
@@ -628,12 +306,14 @@ Name = "Auto Rifle",
 Callback = function(v)
 _G.AutoRifle = v
 game:GetService("RunService").RenderStepped:Connect(function()
+if workspace.RuntimeItems:FindFirstChild("Rifle") then
 if _G.AutoRifle then
 local args = {
     [1] = workspace.RuntimeItems:FindFirstChild("Rifle")
 }
 
 game:GetService("ReplicatedStorage").Remotes.Tool.PickUpTool:FireServer(unpack(args))
+end
 end
 end)
 end})
@@ -642,12 +322,14 @@ Name = "Auto Bolt Action Rifle",
 Callback = function(v)
 _G.AutoBoltActionRifle = v
 game:GetService("RunService").RenderStepped:Connect(function()
+if workspace.RuntimeItems:FindFirstChild("Bolt Action Rifle") then
 if _G.AutoBoltActionRifle then
 local args = {
     [1] = workspace.RuntimeItems:FindFirstChild("Bolt Action Rifle")
 }
 
 game:GetService("ReplicatedStorage").Remotes.Tool.PickUpTool:FireServer(unpack(args))
+end
 end
 end)
 end})
@@ -656,12 +338,14 @@ Name = "Auto Electrocutioner",
 Callback = function(v)
 _G.AutoElectrocutioner = v
 game:GetService("RunService").RenderStepped:Connect(function()
+if workspace.RuntimeItems:FindFirstChild("Bolt Action Rifle") then
 if _G.AutoElectrocutioner then
 local args = {
     [1] = workspace.RuntimeItems:FindFirstChild("Electrocutioner")
 }
 
 game:GetService("ReplicatedStorage").Remotes.Tool.PickUpTool:FireServer(unpack(args))
+end
 end
 end)
 end})
@@ -733,12 +417,6 @@ v:Destroy()
 end
 end
 end
-end})
-Tabs.Graphics:AddButton({
-Name = "TP The Bridge",
-Callback = function(v)
-local plr = game.Players.LocalPlayer.Character
-plr.HumanoidRootPart.CFrame = CFrame.new(-374.5484924316406, -70.22786712646484, -49202.4921875)
 end})
 Tabs.Players:AddSection({"Players"})
 Tabs.Players:AddSlider({
@@ -1030,9 +708,4 @@ Tabs.Visual:AddToggle({
 Name = "Show Rainbow",
 Callback = function(v)
 getgenv().RainbowESP = v
-end})
-Tabs.Visual:AddToggle({
-Name = "Show Distance",
-Callback = function(v)
-getgenv().DistanceESP = v
 end})
