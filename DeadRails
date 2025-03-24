@@ -388,12 +388,14 @@ Callback = function(v)
 if v then
 for _,v in ipairs(workspace:GetDescendants()) do
 if v.Name == "TurretOutlaw" or v.Name == "RifleOutlaw" or v.Name == "ShotgunOutlaw" or v.Name == "RevolverOutlaw" or v.Name == "Vampire" or v.Name == "Werewolf" or v.Name == "Wolf" or v.Name == "Runner" or v.Name == "Walker" or v.Name == "Banner" then
-v.HumanoidRootPart.Size = Vector3.new(5,5,5)
+v.HumanoidRootPart.Size = Vector3.new(7,7,7)
+v.Head.Size = Vector3.new(7,7,7)
 end
 end
 HitboxEnemies = workspace.DescendantAdded:Connect(function(v)
 if v.Name == "TurretOutlaw" or v.Name == "RifleOutlaw" or v.Name == "ShotgunOutlaw" or v.Name == "RevolverOutlaw" or v.Name == "Vampire" or v.Name == "Werewolf" or v.Name == "Wolf" or v.Name == "Runner" or v.Name == "Walker" or v.Name == "Banner" then
-v.HumanoidRootPart.Size = Vector3.new(5,5,5)
+v.HumanoidRootPart.Size = Vector3.new(7,7,7)
+v.Head.Size = Vector3.new(7,7,7)
 end
 end)
 else
@@ -404,6 +406,24 @@ v.HumanoidRootPart.Size = Vector3.new(1.5,1.5,1.5)
 end
 end
 end
+end})
+Tabs.Graphics:AddToggle({
+Name = "Fast Shoot",
+Callback = function(v)
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.FastShoot then
+game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("WeaponConfiguration").FireDelay.Value = 0.1
+end
+end)
+end})
+Tabs.Graphics:AddToggle({
+Name = "Fast Reload",
+Callback = function(v)
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.FastReload then
+game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("WeaponConfiguration").ReloadDuration.Value = 0
+end
+end)
 end})
 Tabs.Graphics:AddToggle({
 Name = "NPCs Lock GUI",
