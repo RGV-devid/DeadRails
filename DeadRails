@@ -383,47 +383,90 @@ end)
 end})
 Tabs.Graphics:AddSection({"OP"})
 Tabs.Graphics:AddToggle({
-Name = "Hitbox",
+Name = "Hitbox Head Enemies",
 Callback = function(v)
 if v then
-for _,v in ipairs(workspace:GetDescendants()) do
-if v.Name == "TurretOutlaw" or v.Name == "RifleOutlaw" or v.Name == "ShotgunOutlaw" or v.Name == "RevolverOutlaw" or v.Name == "Vampire" or v.Name == "Werewolf" or v.Name == "Wolf" or v.Name == "Runner" or v.Name == "Walker" or v.Name == "Banner" then
-v.HumanoidRootPart.Size = Vector3.new(7,7,7)
-v.Head.Size = Vector3.new(7,7,7)
+for _, object in ipairs(workspace:GetDescendants()) do
+if object:IsA("Model") then
+if object:FindFirstChild("Humanoid") or object:FindFirstChildWhichIsA("Humanoid") and object:FindFirstChild("HumanoidRootPart") or object.PrimaryPart and object:FindFirstChild("Humanoid") or object:FindFirstChildWhichIsA("Humanoid").Health > 0 then
+for _, plr in ipairs(game:GetService("Players"):GetPlayers()) do
+if plr.Character == object then
+break
+end
+end
+object:FindFirstChild("Head").Size = Vector3.new(7,7,7)
+end
 end
 end
 HitboxEnemies = workspace.DescendantAdded:Connect(function(v)
-if v.Name == "TurretOutlaw" or v.Name == "RifleOutlaw" or v.Name == "ShotgunOutlaw" or v.Name == "RevolverOutlaw" or v.Name == "Vampire" or v.Name == "Werewolf" or v.Name == "Wolf" or v.Name == "Runner" or v.Name == "Walker" or v.Name == "Banner" then
-v.HumanoidRootPart.Size = Vector3.new(7,7,7)
-v.Head.Size = Vector3.new(7,7,7)
+if object:IsA("Model") then
+if object:FindFirstChild("Humanoid") or object:FindFirstChildWhichIsA("Humanoid") and object:FindFirstChild("HumanoidRootPart") or object.PrimaryPart and object:FindFirstChild("Humanoid") or object:FindFirstChildWhichIsA("Humanoid").Health > 0 then
+for _, plr in ipairs(game:GetService("Players"):GetPlayers()) do
+if plr.Character == object then
+break
+end
+end
+object:FindFirstChild("Head").Size = Vector3.new(7,7,7)
+end
 end
 end)
 else
 HitboxEnemies:Disconnect()
 for _,v in ipairs(workspace:GetDescendants()) do
-if v.Name == "Outlaw" or v.Name == "Vampire" or v.Name == "Werewolf" or v.Name == "Wolf" or v.Name == "Runner" or v.Name == "Walker" or v.Name == "Banner" then
-v.HumanoidRootPart.Size = Vector3.new(1.5,1.5,1.5)
+if object:IsA("Model") then
+if object:FindFirstChild("Humanoid") or object:FindFirstChildWhichIsA("Humanoid") and object:FindFirstChild("HumanoidRootPart") or object.PrimaryPart and object:FindFirstChild("Humanoid") or object:FindFirstChildWhichIsA("Humanoid").Health > 0 then
+for _, plr in ipairs(game:GetService("Players"):GetPlayers()) do
+if plr.Character == object then
+break
+end
+end
+object:FindFirstChild("Head").Size = Vector3.new(1.5,2,1.5)
 end
 end
 end
 end})
 Tabs.Graphics:AddToggle({
-Name = "Fast Shoot",
+Name = "Hitbox Body Enemies",
 Callback = function(v)
-game:GetService("RunService").RenderStepped:Connect(function()
-if _G.FastShoot then
-game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("WeaponConfiguration").FireDelay.Value = 0.1
+if v then
+for _, object in ipairs(workspace:GetDescendants()) do
+if object:IsA("Model") then
+if object:FindFirstChild("Humanoid") or object:FindFirstChildWhichIsA("Humanoid") and object:FindFirstChild("HumanoidRootPart") or object.PrimaryPart and object:FindFirstChild("Humanoid") or object:FindFirstChildWhichIsA("Humanoid").Health > 0 then
+for _, plr in ipairs(game:GetService("Players"):GetPlayers()) do
+if plr.Character == object then
+break
+end
+end
+object:FindFirstChild("HumanoidRootPart").Size = Vector3.new(12,12,12)
+end
+end
+end
+HitboxEnemies = workspace.DescendantAdded:Connect(function(v)
+if object:IsA("Model") then
+if object:FindFirstChild("Humanoid") or object:FindFirstChildWhichIsA("Humanoid") and object:FindFirstChild("HumanoidRootPart") or object.PrimaryPart and object:FindFirstChild("Humanoid") or object:FindFirstChildWhichIsA("Humanoid").Health > 0 then
+for _, plr in ipairs(game:GetService("Players"):GetPlayers()) do
+if plr.Character == object then
+break
+end
+end
+object:FindFirstChild("HumanoidRootPart").Size = Vector3.new(12,12,12)
+end
 end
 end)
-end})
-Tabs.Graphics:AddToggle({
-Name = "Fast Reload",
-Callback = function(v)
-game:GetService("RunService").RenderStepped:Connect(function()
-if _G.FastReload then
-game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("WeaponConfiguration").ReloadDuration.Value = 0
+else
+HitboxEnemies:Disconnect()
+for _,v in ipairs(workspace:GetDescendants()) do
+if object:IsA("Model") then
+if object:FindFirstChild("Humanoid") or object:FindFirstChildWhichIsA("Humanoid") and object:FindFirstChild("HumanoidRootPart") or object.PrimaryPart and object:FindFirstChild("Humanoid") or object:FindFirstChildWhichIsA("Humanoid").Health > 0 then
+for _, plr in ipairs(game:GetService("Players"):GetPlayers()) do
+if plr.Character == object then
+break
 end
-end)
+end
+object:FindFirstChild("HumanoidRootPart").Size = Vector3.new(1.5,1.5,1.5)
+end
+end
+end
 end})
 Tabs.Graphics:AddToggle({
 Name = "NPCs Lock GUI",
@@ -437,6 +480,27 @@ v:Destroy()
 end
 end
 end
+end})
+Tabs.Graphics:AddSection({"Gun OP"})
+Tabs.Graphics:AddToggle({
+Name = "Fast Shoot",
+Callback = function(v)
+_G.FastShoot = v
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.FastShoot then
+game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("WeaponConfiguration").FireDelay.Value = 0.1
+end
+end)
+end})
+Tabs.Graphics:AddToggle({
+Name = "Fast Reload",
+Callback = function(v)
+_G.FastReload = v
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.FastReload then
+game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("WeaponConfiguration").ReloadDuration.Value = 0
+end
+end)
 end})
 Tabs.Players:AddSection({"Players"})
 Tabs.Players:AddSlider({
