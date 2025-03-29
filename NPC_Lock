@@ -126,6 +126,7 @@ end
 button.MouseButton1Click:Connect(function()
     npcLock = not npcLock
     if npcLock then
+      addPlayerHighlight()
         button.Text = "NPCs Lock\nON"
         toggleLoop = runService.RenderStepped:Connect(function()
             local npc = getClosestNPC()
@@ -133,11 +134,9 @@ button.MouseButton1Click:Connect(function()
                 local npcHumanoid = npc:FindFirstChild("Humanoid")
                 if npcHumanoid.Health > 0 then
                     camera.CameraSubject = npcHumanoid
-                    lastTarget = npc
-                    addPlayerHighlight()
+                    lastTarget = nil
                 else
                     lastTarget = nil
-                    removePlayerHighlight()
                     if player.Character and player.Character:FindFirstChild("Humanoid") then
                         camera.CameraSubject = player.Character:FindFirstChild("Humanoid")
                     end
@@ -147,8 +146,8 @@ button.MouseButton1Click:Connect(function()
                     camera.CameraSubject = player.Character:FindFirstChild("Humanoid")
                 end
                 lastTarget = nil
-                removePlayerHighlight()
             end
+         wait()
         end)
     else
         button.Text = "NPCs Lock\nOFF"
