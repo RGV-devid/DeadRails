@@ -398,7 +398,7 @@ object:FindFirstChild("Head").Size = Vector3.new(7,7,7)
 end
 end
 end
-HitboxEnemies = workspace.DescendantAdded:Connect(function(v)
+HitboxHeadEnemies = workspace.DescendantAdded:Connect(function(object)
 if object:IsA("Model") then
 if object:FindFirstChild("Humanoid") or object:FindFirstChildWhichIsA("Humanoid") and object:FindFirstChild("HumanoidRootPart") or object.PrimaryPart and object:FindFirstChild("Humanoid") or object:FindFirstChildWhichIsA("Humanoid").Health > 0 then
 for _, plr in ipairs(game:GetService("Players"):GetPlayers()) do
@@ -411,7 +411,7 @@ end
 end
 end)
 else
-HitboxEnemies:Disconnect()
+HitboxHeadEnemies:Disconnect()
 for _,v in ipairs(workspace:GetDescendants()) do
 if object:IsA("Model") then
 if object:FindFirstChild("Humanoid") or object:FindFirstChildWhichIsA("Humanoid") and object:FindFirstChild("HumanoidRootPart") or object.PrimaryPart and object:FindFirstChild("Humanoid") or object:FindFirstChildWhichIsA("Humanoid").Health > 0 then
@@ -441,7 +441,7 @@ object:FindFirstChild("HumanoidRootPart").Size = Vector3.new(12,12,12)
 end
 end
 end
-HitboxEnemies = workspace.DescendantAdded:Connect(function(v)
+HitboxEnemies = workspace.DescendantAdded:Connect(function(object)
 if object:IsA("Model") then
 if object:FindFirstChild("Humanoid") or object:FindFirstChildWhichIsA("Humanoid") and object:FindFirstChild("HumanoidRootPart") or object.PrimaryPart and object:FindFirstChild("Humanoid") or object:FindFirstChildWhichIsA("Humanoid").Health > 0 then
 for _, plr in ipairs(game:GetService("Players"):GetPlayers()) do
