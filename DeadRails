@@ -405,6 +405,7 @@ end
 end
 end
 end
+end
 Tabs.Graphics:AddToggle({
 Name = "Hitbox Head Enemies",
 Callback = function(v)
