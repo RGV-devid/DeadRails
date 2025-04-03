@@ -382,51 +382,31 @@ end
 end)
 end})
 Tabs.Graphics:AddSection({"OP"})
-local function Enemies()
-local NPC = nil
-local NearetDistance = math.huge
-for _, object in ipairs(workspace:GetDescendants()) do
-if object:IsA("Model") then
-if object:FindFirstChild("Humanoid") or object:FindFirstChildWhichIsA("Humanoid") and object:FindFirstChild("HumanoidRootPart") or object.PrimaryPart and object:FindFirstChild("Humanoid") or object:FindFirstChildWhichIsA("Humanoid").Health > 0 then
-local CantTargetPlayer = false
-for _, plr in ipairs(game:GetService("Players"):GetPlayers()) do
-if plr.Character == object then
-CantTargetPlayer = true
-break
-end
-end
-if not CantTargetPlayer then
-local Distance = (object:FindFirstChild("HumanoidRootPart") or object.PrimaryPart.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
-if Distance < NearetDistance then
-NearetDistance = Distance
-NPC = object
-end
-end
-end
-end
-end
-end
 Tabs.Graphics:AddToggle({
 Name = "Hitbox Head Enemies",
 Callback = function(v)
 _G.HitboxHeadEnemies = v
 game:GetService("RunService").RenderStepped:Connect(function()
-if _G.HitboxHeadEnemies do
-local HitboxHeadEnemies = Enemies()
-if HitboxHeadEnemies and HitboxHeadEnemies:FindFirstChild("Humanoid") then
-local EnemiesHumanoid = HitboxHeadEnemies:FindFirstChild("Humanoid")
-local EnemiesHead = HitboxHeadEnemies:FindFirstChild("Head")
-if EnemiesHumanoid.Health > 0 then
-EnemiesHead.Size = Vector3.new(15,15,15)
+if _G.HitboxHeadEnemies then
+for _, object in ipairs(workspace:GetDescendants()) do
+if object:IsA("Model") and v:FindFirstChild("Head") then
+for _, plr in ipairs(game:GetService("Players"):GetPlayers()) do
+if plr.Character == object then
+break
+end
+end
+object.Head.Size = Vector3.new(15,15,15)
 end
 end
 else
-local HitboxHeadEnemies = Enemies()
-if HitboxHeadEnemies and HitboxHeadEnemies:FindFirstChild("Humanoid") then
-local EnemiesHumanoid = HitboxHeadEnemies:FindFirstChild("Humanoid")
-local EnemiesHead = HitboxHeadEnemies:FindFirstChild("Head")
-if EnemiesHumanoid.Health > 0 then
-EnemiesHead.Size = Vector3.new(15,15,15)
+for _, object in ipairs(workspace:GetDescendants()) do
+if object:IsA("Model") and v:FindFirstChild("Head") then
+for _, plr in ipairs(game:GetService("Players"):GetPlayers()) do
+if plr.Character == object then
+break
+end
+end
+object.Head.Size = Vector3.new(15,15,15)
 end
 end
 end
@@ -437,22 +417,26 @@ Name = "Hitbox Body Enemies",
 Callback = function(v)
 _G.HitboxBodyEnemies = v
 game:GetService("RunService").RenderStepped:Connect(function()
-if _G.HitboxBodyEnemies do
-local HitboxEnemies = Enemies()
-if HitboxEnemies and HitboxEnemies:FindFirstChild("Humanoid") then
-local EnemiesHumanoid = HitboxEnemies:FindFirstChild("Humanoid")
-local EnemiesHumanoidRootPart = HitboxEnemies:FindFirstChild("HumanoidRootPart")
-if EnemiesHumanoid.Health > 0 then
-EnemiesHumanoidRootPart.Size = Vector3.new(15,15,15)
+if _G.HitboxBodyEnemies then
+for _, object in ipairs(workspace:GetDescendants()) do
+if object:IsA("Model") and v:FindFirstChild("HumanoidRootPart") then
+for _, plr in ipairs(game:GetService("Players"):GetPlayers()) do
+if plr.Character == object then
+break
+end
+end
+object.HumanoidRootPart.Size = Vector3.new(15,15,15)
 end
 end
 else
-local HitboxEnemies = Enemies()
-if HitboxEnemies and HitboxEnemies:FindFirstChild("Humanoid") then
-local EnemiesHumanoid = HitboxEnemies:FindFirstChild("Humanoid")
-local EnemiesHumanoidRootPart = HitboxEnemies:FindFirstChild("HumanoidRootPart")
-if EnemiesHumanoid.Health > 0 then
-EnemiesHumanoidRootPart.Size = Vector3.new(1.5,1.5,1.5)
+for _, object in ipairs(workspace:GetDescendants()) do
+if object:IsA("Model") and v:FindFirstChild("HumanoidRootPart") then
+for _, plr in ipairs(game:GetService("Players"):GetPlayers()) do
+if plr.Character == object then
+break
+end
+end
+object.HumanoidRootPart.Size = Vector3.new(15,15,15)
 end
 end
 end
