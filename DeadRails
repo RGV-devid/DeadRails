@@ -396,7 +396,7 @@ break
 end
 end
 if not CantTargetPlayer then
-local Distance = (object:FindFirstChild("HumanoidRootPart") or object.PrimaryPart.Position - game:GetService("Players").Character.HumanoidRootPart.Position).Magnitude
+local Distance = (object:FindFirstChild("HumanoidRootPart") or object.PrimaryPart.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
 if Distance < NearetDistance then
 NearetDistance = Distance
 NPC = object
