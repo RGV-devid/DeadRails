@@ -274,10 +274,10 @@ Name = "Auto Mauser C96",
 Callback = function(v)
 _G.AutoMauserC96 = v
 game:GetService("RunService").RenderStepped:Connect(function()
-if workspace.RuntimeItems:FindFirstChild("Mauser C96") then
+if workspace.RuntimeItems:FindFirstChild("Mauser") then
 if _G.AutoMauserC96 then
 local args = {
-    [1] = workspace.RuntimeItems:FindFirstChild("Mauser C96")
+    [1] = workspace.RuntimeItems:FindFirstChild("Mauser")
 }
 
 game:GetService("ReplicatedStorage").Remotes.Tool.PickUpTool:FireServer(unpack(args))
@@ -382,6 +382,81 @@ end
 end)
 end})
 Tabs.Graphics:AddSection({"OP"})
+local function Enemies()
+local NPC = nil
+local NearetDistance = math.huge
+for _, object in ipairs(workspace:GetDescendants()) do
+if object:IsA("Model") then
+if object:FindFirstChild("Humanoid") or object:FindFirstChildWhichIsA("Humanoid") and object:FindFirstChild("HumanoidRootPart") or object.PrimaryPart and object:FindFirstChild("Humanoid") or object:FindFirstChildWhichIsA("Humanoid").Health > 0 then
+local CantTargetPlayer = false
+for _, plr in ipairs(game:GetService("Players"):GetPlayers()) do
+if plr.Character == object then
+CantTargetPlayer = true
+break
+end
+end
+if not CantTargetPlayer then
+local Distance = (object:FindFirstChild("HumanoidRootPart") or object.PrimaryPart.Position - game:GetService("Players").Character.HumanoidRootPart.Position).Magnitude
+if Distance < NearetDistance then
+NearetDistance = Distance
+NPC = object
+end
+end
+end
+end
+end
+Tabs.Graphics:AddToggle({
+Name = "Hitbox Head Enemies",
+Callback = function(v)
+_G.HitboxHeadEnemies = v
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.HitboxHeadEnemies do
+local HitboxHeadEnemies = Enemies()
+if HitboxHeadEnemies and HitboxHeadEnemies:FindFirstChild("Humanoid") then
+local EnemiesHumanoid = HitboxHeadEnemies:FindFirstChild("Humanoid")
+local EnemiesHead = HitboxHeadEnemies:FindFirstChild("Head")
+if EnemiesHumanoid.Health > 0 then
+EnemiesHead.Size = Vector3.new(15,15,15)
+end
+end
+else
+local HitboxHeadEnemies = Enemies()
+if HitboxHeadEnemies and HitboxHeadEnemies:FindFirstChild("Humanoid") then
+local EnemiesHumanoid = HitboxHeadEnemies:FindFirstChild("Humanoid")
+local EnemiesHead = HitboxHeadEnemies:FindFirstChild("Head")
+if EnemiesHumanoid.Health > 0 then
+EnemiesHead.Size = Vector3.new(15,15,15)
+end
+end
+end
+end)
+end})
+Tabs.Graphics:AddToggle({
+Name = "Hitbox Body Enemies",
+Callback = function(v)
+_G.HitboxBodyEnemies = v
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.HitboxBodyEnemies do
+local HitboxEnemies = Enemies()
+if HitboxEnemies and HitboxEnemies:FindFirstChild("Humanoid") then
+local EnemiesHumanoid = HitboxEnemies:FindFirstChild("Humanoid")
+local EnemiesHumanoidRootPart = HitboxEnemies:FindFirstChild("HumanoidRootPart")
+if EnemiesHumanoid.Health > 0 then
+EnemiesHumanoidRootPart.Size = Vector3.new(15,15,15)
+end
+end
+else
+local HitboxEnemies = Enemies()
+if HitboxEnemies and HitboxEnemies:FindFirstChild("Humanoid") then
+local EnemiesHumanoid = HitboxEnemies:FindFirstChild("Humanoid")
+local EnemiesHumanoidRootPart = HitboxEnemies:FindFirstChild("HumanoidRootPart")
+if EnemiesHumanoid.Health > 0 then
+EnemiesHumanoidRootPart.Size = Vector3.new(1.5,1.5,1.5)
+end
+end
+end
+end)
+end})
 Tabs.Graphics:AddToggle({
 Name = "NPCs Lock GUI",
 Callback = function(v)
@@ -394,27 +469,6 @@ v:Destroy()
 end
 end
 end
-end})
-Tabs.Graphics:AddSection({"Gun OP"})
-Tabs.Graphics:AddToggle({
-Name = "Fast Shoot",
-Callback = function(v)
-_G.FastShoot = v
-game:GetService("RunService").RenderStepped:Connect(function()
-if _G.FastShoot then
-game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("WeaponConfiguration").FireDelay.Value = 0.1
-end
-end)
-end})
-Tabs.Graphics:AddToggle({
-Name = "Fast Reload",
-Callback = function(v)
-_G.FastReload = v
-game:GetService("RunService").RenderStepped:Connect(function()
-if _G.FastReload then
-game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("WeaponConfiguration").ReloadDuration.Value = 0
-end
-end)
 end})
 Tabs.Players:AddSection({"Players"})
 Tabs.Players:AddSlider({
