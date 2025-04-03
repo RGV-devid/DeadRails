@@ -104,7 +104,7 @@ local function getClosestNPC()
             if humanoid and hrp and humanoid.Health > 0 then
                 local isPlayer = false
                 for _, pl in ipairs(Players:GetPlayers()) do
-                    if pl.Character == object then
+                    if pl.Character == object or object.Name == "Horse" or object.Name == "Unicorn" then
                         isPlayer = true
                         break
                     end
