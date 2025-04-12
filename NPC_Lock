@@ -21,8 +21,8 @@ button.Name = "NPC Lock"
 button.Size = UDim2.new(0, 150, 0, 50)
 button.Position = UDim2.new(0.899999976, -48, 0, -37)
 button.BackgroundColor3 = Color3.new(0, 0, 0)
-button.TextColor3 = Color3.new(0, 1, 0.3)
-button.Text = "NPCs Lock\nOFF"
+button.TextColor3 = Color3.fromRGB(255,100,100)
+button.Text = "KHOÁ ĐỐI THỦ\nTẮT"
 button.Font = Enum.Font.Code
 button.TextScaled = true
 button.TextSize = 20
@@ -78,8 +78,8 @@ local function addPlayerHighlight()
         if not highlight then
             highlight = Instance.new("Highlight")
             highlight.Name = "PlayerHighlightESP"
-            highlight.FillColor = Color3.new(0,1,0.3)
-            highlight.OutlineColor = Color3.new(0,1,0.3)
+            highlight.FillColor = Color3.new(1,0.27,0.27)
+            highlight.OutlineColor = Color3.new(1,0.27,0.27)
             highlight.FillTransparency = 0.5
             highlight.OutlineTransparency = 0
             highlight.Parent = player.Character
@@ -104,8 +104,13 @@ local function getClosestNPC()
             if humanoid and hrp and humanoid.Health > 0 then
                 local isPlayer = false
                 for _, pl in ipairs(Players:GetPlayers()) do
-                    if pl.Character == object or object.Name == "Horse" or object.Name == "Unicorn" then
+                    if pl.Character == object then
                         isPlayer = true
+                        break
+                    end
+                end
+                for _, v in ipairs(workspace:GetDescendants()) do
+                    if v.Name == "Horse" or v.Name == "Unicorn" then
                         break
                     end
                 end
@@ -127,7 +132,7 @@ button.MouseButton1Click:Connect(function()
     npcLock = not npcLock
     if npcLock then
       addPlayerHighlight()
-        button.Text = "NPCs Lock\nON"
+        button.Text = "KHOÁ ĐỐI THỦ\nBẬT"
         toggleLoop = runService.RenderStepped:Connect(function()
             local npc = getClosestNPC()
             if npc and npc:FindFirstChild("Humanoid") then
@@ -150,7 +155,7 @@ button.MouseButton1Click:Connect(function()
          wait()
         end)
     else
-        button.Text = "NPCs Lock\nOFF"
+        button.Text = "KHOÁ ĐỐI THỦ\nTẮT"
         if toggleLoop then
             toggleLoop:Disconnect()
             toggleLoop = nil
